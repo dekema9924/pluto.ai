@@ -5,48 +5,6 @@ body {
   color: white;
 }
 
-.slider-wrapper {
-  overflow: hidden;
-  width: 100%;
-  position: relative;
-}
-
-.slider-track {
-  display: flex;
-  animation: imageslider 10s linear infinite;
-  will-change: transform;
-  justify-content: space-around;
-}
-
-/*  Pause on hover */
-.slider-wrapper:hover .slider-track {
-  animation-play-state: paused;
-}
-
-.slide {
-  flex-shrink: 0;
-  padding: 0 1rem;
-}
-
-.slide img {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-}
-
-/*  Responsive height for mobile */
-@media (max-width: 768px) {
-  .slide img {
-    height: 30px;
-  }
-}
-
-/*  Animation keyframes */
-@keyframes imageslider {
-  0% {
-    transform: translateX(-10%);
-  }
-  100% {
-    transform: translateX(50%);
-  }
+button {
+  cursor: pointer;
 }

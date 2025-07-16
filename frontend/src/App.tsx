@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
-import Hero from "./pages/Hero"
+import Hero from "./pages/LandingPage/Hero"
 import Header from "./components/Header"
-
+import Footer from "./components/footer"
 function App() {
   return (
     <>
@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Hero />} />
       </Routes>
+      <Footer />
     </>
   )
 }
