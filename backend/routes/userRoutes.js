@@ -2,6 +2,8 @@
 const express = require('express')
 const signUp = require('../controllers/auth/signUp')
 const signIn = require('../controllers/auth/signIn')
+const verifyToken = require('../middleware/verifyToken')
+const Profile = require('../controllers/auth/Profile')
 const userRouter = express.Router()
 
 
@@ -10,7 +12,8 @@ userRouter.get('/', (req, res) => {
 })
 
 //signup
-userRouter.get('/signup', signUp);
-userRouter.get('/signin', signIn)
+userRouter.post('/signup', signUp);
+userRouter.post('/signin', signIn)
+userRouter.get('/profile', verifyToken, Profile)
 
 module.exports = userRouter

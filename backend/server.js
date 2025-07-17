@@ -4,10 +4,12 @@ const express = require('express')
 const app = express()
 const port = 3000
 const userRouter = require('./routes/userRoutes')
+const cookieParser = require('cookie-parser')
 
 
 
 //middlewares
+app.use(cookieParser())
 app.use(express.json()) //parse json
 app.use(express.urlencoded({ extended: true }))
 app.use('/auth', userRouter)
