@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router-dom"
 import Hero from "./pages/LandingPage/Hero"
 import Header from "./components/Header"
-import Footer from "./components/footer"
+import Footer from "./components/Footer"
+
+
 function App() {
   return (
     <>

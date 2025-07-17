@@ -4,7 +4,7 @@ export default function Footer() {
             <div className="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Branding */}
                 <div className="space-y-4">
-                    <h1 className="text-wheat text-2xl font-bold">Pluto.ai</h1>
+                    <h1 className="text-[wheat] text-2xl font-bold">Pluto.ai</h1>
                     <p className="text-sm">
                         Experience the power of AI with Pluto.ai. Transform your content creation with our suite of premium AI tools. Write articles, generate images, and enhance your workflow.
                     </p>

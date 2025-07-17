@@ -37,8 +37,8 @@ const Service = () => {
         <>
             <section>
                 <div className="  flex flex-col justify-center items-center text-center">
-                    <h1 className="text-3xl font-bold">Powerful Ai tools at your disposal.</h1>
-                    <p className="w-96 text-center">everything you need to vreate, enhance and optimize your content with cutting edge AI technology.</p>
+                    <h1 className="md:text-3xl text-2xl font-bold">Powerful Ai tools at your disposal.</h1>
+                    <p className="w-96 text-center text-sm md:text-lg mt-4">everything you need to vreate, enhance and optimize your content with cutting edge AI technology.</p>
                 </div>
                 <div className="flex flex-wrap items-center  gap-4 justify-center my-14  max-w-[900px] w-11/12 m-auto">
                     {
@@ -52,7 +52,8 @@ const Service = () => {
                                             duration: 3, amount: 0.7
 
                                         }}
-                                        className="border w-11/12 border-[wheat] rounded-md p-4 bg-black text-white md:w-66 h-44" key={indx}>
+                                        className="border w-11/12 border-[wheat] rounded-md p-4 bg-black text-white md:w-66 h-44"
+                                        key={indx}>
                                         <img className="pb-2 w-10" loading="lazy" src={service.icon} alt="serviceIcon" />
                                         <h1 className="font-bold">{service.title}</h1>
                                         <p className="my-5 text-gray-300">{service.description}</p>

@@ -1,7 +1,8 @@
 import Service from "./Service"
 import { motion } from "motion/react"
 import Testimonial from "./Testimonial"
-import Plan from "./Plan"
+import Plan
+    from "./Plan"
 
 const Hero = () => {
     const logos = [
@@ -22,7 +23,7 @@ const Hero = () => {
                 />
 
                 {/* Content on top */}
-                <div className="relative z-10 flex flex-col items-center">
+                <div className="relative z-10 flex flex-col items-center gap-7">
                     <div className="border flex items-center w-fit px-6 h-12 rounded-2xl my-6">
                         <span className="flex w-fit">
                             {/* profile images */}
@@ -30,11 +31,11 @@ const Hero = () => {
                         <p className="font-bold">join the community of 1K+ users</p>
                     </div>
 
-                    <h1 className="text-2xl capitalize text-center w-[500px]">
+                    <h1 className="text-2xl capitalize text-center md:w-[500px] w-96">
                         Unleash your creativity and bring your ideas to life with{" "}
                         <span className="text-[1.4em] normal-case font-bold">Pluto.ai.</span>
                     </h1>
-                    <p className="text-gray-400 w-[500px] text-center my-3">
+                    <p className="text-gray-400 md:w-[500px] w-96 text-center my-3">
                         From visuals to headlines, our AI tools help you produce high-quality content in one click.
                     </p>
 
@@ -50,18 +51,20 @@ const Hero = () => {
 
                 </div>
                 {/* Logo slider */}
-                <div className="relative flex w-full justify-between mt-22 overflow-hidden">
-                    {logos.map((logo, indx) => (
-                        <motion.div
-                            key={indx}
-                            initial={{ x: "-100%" }}
-                            animate={{ x: "100%" }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                            className="relative"
-                        >
-                            <img className="w-22 object-cover mx-4" src={logo} alt={`logo ${indx}`} />
-                        </motion.div>
-                    ))}
+                <div className=" w-7/12 h-22 mt-22">
+                    <div className="relative flex w-full justify-between  overflow-hidden">
+                        {logos.map((logo, indx) => (
+                            <motion.div
+                                key={indx}
+                                initial={{ x: "-100%" }}
+                                animate={{ x: "100%" }}
+                                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                className="relative"
+                            >
+                                <img className="w-22 object-cover mx-4" src={logo} alt={`logo ${indx}`} />
+                            </motion.div>
+                        ))}
+                    </div>
                 </div>
             </section>
 
