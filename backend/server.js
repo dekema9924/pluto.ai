@@ -5,8 +5,23 @@ const app = express()
 const port = 3000
 const userRouter = require('./routes/userRoutes')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
+//cors config
+const allowedOrigins = ['http://localhost:5173']; // array of allowed origins
 
+app.use(cors({
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps, curl, postman)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    credentials: true // allow cookies to be sent
+}));
 
 //middlewares
 app.use(cookieParser())

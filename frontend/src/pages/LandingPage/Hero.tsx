@@ -1,8 +1,9 @@
 import Service from "./Service"
 import { motion } from "motion/react"
 import Testimonial from "./Testimonial"
-import Plan
-    from "./Plan"
+import Plan from "./Plan"
+import Footer from "../../components/Footer"
+import Header from "../../components/Header"
 
 const Hero = () => {
     const logos = [
@@ -14,6 +15,8 @@ const Hero = () => {
 
     return (
         <>
+            <Header />
+
 
             <section className="relative mt-22 flex flex-col items-center justify-center">
                 {/* Gradient overlay */}
@@ -75,6 +78,7 @@ const Hero = () => {
                 <Testimonial />
                 <Plan />
             </div>
+            <Footer />
         </>
     )
 }

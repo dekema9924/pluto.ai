@@ -1,16 +1,74 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useModal } from '../../context/modalContext';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import validator from 'validator'
+import { createuser } from '../../api/usersApi';
+
 
 const SignupForm: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const { toggleModal, switchForm } = useModal()
 
+    interface UserInput {
+        email: string;
+        password: string;
+        name: string;
+    }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const [userInput, setUserInput] = useState<UserInput>({
+        email: '',
+        password: '',
+        name: ''
+    })
+    const [ispasswordtext, setpasswordText] = useState('password')
+    const [emailerr, setEmailErr] = useState("")
+    const [passworderr, setPasswordErr] = useState("")
+
+
+    const HandleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserInput({
+            ...userInput,
+            [e.target.name]: e.target.value
+
+        })
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        const hints = [];
         e.preventDefault();
-        console.log({ email, password });
+
+        //validate inputs
+        if (!validator.isEmail(userInput.email)) {
+            setEmailErr('invalid email or password format')
+        }
+
+
+
+        if (userInput.password.length < 8) hints.push('At least 8 characters');
+        if (!/[a-z]/.test(userInput.password)) hints.push('At least one lowercase letter');
+        if (!/[A-Z]/.test(userInput.password)) hints.push('At least one uppercase letter');
+        if (!/[0-9]/.test(userInput.password)) hints.push('At least one number');
+        if (!/[^A-Za-z0-9]/.test(userInput.password)) hints.push('At least one special character');
+
+        if (hints.length > 0) {
+            setPasswordErr(`Password should include: ${hints.join(', ')}`);
+        } else {
+            setPasswordErr('');
+        }
+
+        //create user
+        try {
+            const res = await createuser(userInput.email, userInput.password, userInput.name);
+
+            if (res.status === 201 || res.status === 200) {
+                switchForm()
+            } else {
+                // handle other status codes or errors
+                console.error('Signup failed:', res.status);
+            }
+        } catch (err: any) {
+            console.error('Signup error:', err.response?.data || err.message);
+        }
     };
 
 
@@ -57,23 +115,59 @@ const SignupForm: React.FC = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* email */}
+                    <div>
+                        <input
+                            type="email"
+                            placeholder="Enter your email address"
+                            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            onChange={(e) => HandleUserInput(e)}
+                            required
+                            name='email'
+                        />
+                        <p className='text-sm text-red-500 pl-2'>{emailerr}</p>
+
+                    </div>
+
+                    {/* //name */}
                     <input
-                        type="email"
-                        placeholder="Enter your email address"
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        type="text"
+                        placeholder="Enter your name"
+                        className="w-full border border-gray-300 rounded-md px-4 pb-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        onChange={(e) => HandleUserInput(e)}
                         required
+                        name='name'
                     />
 
-                    <input
-                        type="password"
-                        placeholder="Enter your password"
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                    {/* password */}
+                    <div className='flex items-center relative'>
+                        <div className='relative w-full'>
+                            <input
+                                type={ispasswordtext}
+                                placeholder="Enter your password"
+                                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                onChange={(e) => HandleUserInput(e)}
+                                required
+                                name='password'
+                            />
+                            {passworderr && (
+                                <p className='text-sm text-red-500 pl-2'>{passworderr}</p>
+                            )}
+
+                        </div>
+
+                        <div className="absolute right-3 cursor-pointer top-2">
+
+                            {
+                                ispasswordtext == 'text' ?
+                                    <RemoveRedEyeIcon onClick={() => setpasswordText('password')} sx={{ fontSize: 18, cursor: 'pointer', }} /> :
+                                    <VisibilityOffIcon onClick={() => setpasswordText('text')} sx={{ fontSize: 18, cursor: 'pointer', }} />
+
+
+                            }
+                        </div>
+
+                    </div>
 
                     <button
                         type="submit"

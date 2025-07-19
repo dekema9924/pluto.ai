@@ -18,7 +18,7 @@ module.exports = signIn = async (req, res) => {
             console.error('bcrypt error:', err);
             return;
         }
-        if (!result) return res.status(400).json({ messahe: 'invalid credentials' })
+        if (!result) return res.status(400).json({ message: 'invalid credentials' })
 
         // Create JWT token with a short expiration
         const jwtToken = jwt.sign(

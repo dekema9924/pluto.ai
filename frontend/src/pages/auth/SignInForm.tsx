@@ -1,14 +1,53 @@
 import React, { useState } from 'react';
 import { useModal } from '../../context/modalContext';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { loginUser } from '../../api/usersApi';
+import { useNavigate } from 'react-router-dom';
+
+
+interface userInterface {
+    email: string
+    password: string
+}
 
 const SignInForm: React.FC = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [userInput, setUserInput] = useState<userInterface>({
+        email: "",
+        password: ""
+    })
+    const [ispasswordtext, setpasswordText] = useState('password')
+    const [err, setErr] = useState("")
     const { toggleModal, switchForm } = useModal()
+    const navigate = useNavigate()
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const HandleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserInput({
+            ...userInput,
+            [e.target.name]: e.target.value
+
+        })
+        setErr("")
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Sign In:', { email, password });
+
+        //create user
+        try {
+            const res = await loginUser(userInput.email, userInput.password);
+
+            if (res.status === 201 || res.status === 200) {
+                toggleModal()
+                navigate('/dashboard')
+            } else {
+                // handle other status codes or errors
+                console.error('Signup failed:', res.status);
+            }
+        } catch (err: any) {
+            console.error('Signup error:', err.response?.data || err.message);
+            setErr(err.response?.data.message)
+        }
     };
 
 
@@ -56,23 +95,39 @@ const SignInForm: React.FC = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input
-                        type="email"
-                        placeholder="Enter your email address"
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+                    {/* email */}
+                    <div>
+                        <input
+                            type="email"
+                            placeholder="Enter your email address"
+                            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            onChange={(e) => HandleUserInput(e)}
+                            required
+                            name='email'
+                        />
+                        <p className='text-sm text-red-500 pl-2'>{err}</p>
 
-                    <input
-                        type="password"
-                        placeholder="Enter your password"
-                        className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                    </div>
+
+                    {/* password */}
+                    <div className='flex items-center relative'>
+                        <input
+                            type={ispasswordtext}
+                            placeholder="Enter your password"
+                            className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            onChange={(e) => HandleUserInput(e)}
+                            required
+                            name='password'
+                        />
+                        {
+                            ispasswordtext == 'text' ?
+                                <RemoveRedEyeIcon onClick={() => setpasswordText('password')} sx={{ fontSize: 18, cursor: 'pointer', position: 'absolute', right: 10 }} /> :
+                                <VisibilityOffIcon onClick={() => setpasswordText('text')} sx={{ fontSize: 18, cursor: 'pointer', position: 'absolute', right: 10 }} />
+
+
+                        }
+
+                    </div>
 
                     <button
                         type="submit"
