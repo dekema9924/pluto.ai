@@ -7,15 +7,41 @@ import ImageIcon from '@mui/icons-material/Image';
 import ContentCutIcon from '@mui/icons-material/ContentCut';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { signoutUser } from "../../api/usersApi";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoffUser } from "../../features/userSlice";
+import { NavLink } from "react-router-dom";
+import { useModal } from "../../context/modalContext";
 
 function Sidebar() {
     const { loading } = useGetUser()
     const user = useSelector((state: RootState) => state.user)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const { isMenu, toggleIsMenu } = useModal();
+
+    const handleSignout = async () => {
+        try {
+            const res = await signoutUser();
+            if (res.status === 200) {
+                console.log("User signed out successfully");
+                dispatch(logoffUser())
+                navigate('/')
+            } else {
+                console.error("Failed to sign out:", res.status);
+            }
+        } catch (err: any) {
+            console.error("Sign out error:", err.response?.data || err.message);
+        }
+    }
 
     if (loading) return <p>...loading</p>
     return (
-        <aside className="boreder- flex flex-col justify-between  w-64 h-screen p-4 border border-gray-700">
-            {/* //profile image */}
+        <aside
+            className={`fixed top-14 z-50 flex mt-11 flex-col justify-evenly h-screen w-64 bg-[#272727] p-4 transition-transform duration-500 ease-in-out border border-gray-700
+  ${isMenu ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+        >            {/* //profile image */}
             <section >
                 <div className="flex flex-col items-center justify-center gap-2 p-4">
                     {
@@ -28,29 +54,68 @@ function Sidebar() {
                     <p className="font-bold text-lg capitalize">{user.name}</p>
                 </div>
 
-                {/* //services */}
+                {/* //sidebar navlinks */}
                 <ul className="my-12">
-                    <li className="flex items-center gap-2 p-2 hover:bg-gray-200 hover:text-black rounded cursor-pointer">
+                    <NavLink
+                        onClick={toggleIsMenu}
+                        to="/dashboard"
+                        className={({ isActive }) =>
+                            `flex items-center gap-2 p-2 rounded cursor-pointer ${isActive ? "bg-gray-200 text-black" : "text-gray-100"
+                            } hover:bg-gray-200 hover:text-black`
+                        }
+                    >
                         <DashboardIcon />
                         <span>Dashboard</span>
-                    </li>
-                    <li className="flex items-center gap-2 p-2 hover:bg-gray-200 hover:text-black rounded cursor-pointer">
+                    </NavLink>
+
+                    <NavLink
+                        onClick={toggleIsMenu}
+
+                        to="/write"
+                        className={({ isActive }) =>
+                            `flex items-center gap-2 p-2 rounded cursor-pointer ${isActive ? "bg-gray-200 text-black" : "text-gray-100"
+                            } hover:bg-gray-200 hover:text-black`
+                        }
+                    >
                         <EditNoteIcon />
                         <span>Write Article</span>
-                    </li>
-                    <li className="flex items-center gap-2 p-2 hover:bg-gray-200 hover:text-black rounded cursor-pointer">
+                    </NavLink>
+
+                    <NavLink
+                        onClick={toggleIsMenu}
+                        to="/generate"
+                        className={({ isActive }) =>
+                            `flex items-center gap-2 p-2 rounded cursor-pointer ${isActive ? "bg-gray-200 text-black" : "text-gray-100"
+                            } hover:bg-gray-200 hover:text-black`
+                        }
+                    >
                         <ImageIcon />
                         <span>Generate Images</span>
-                    </li>
-                    <li className="flex items-center gap-2 p-2 hover:bg-gray-200 hover:text-black rounded cursor-pointer">
+                    </NavLink>
+
+                    <NavLink
+                        onClick={toggleIsMenu}
+                        to="/remove-bg"
+                        className={({ isActive }) =>
+                            `flex items-center gap-2 p-2 rounded cursor-pointer ${isActive ? "bg-gray-200 text-black" : "text-gray-100"
+                            } hover:bg-gray-200 hover:text-black`
+                        }
+                    >
                         <ContentCutIcon />
                         <span>Remove Background</span>
-                    </li>
+                    </NavLink>
 
-                    <li className="flex items-center gap-2 p-2 hover:bg-gray-200 hover:text-black rounded cursor-pointer">
+                    <NavLink
+                        onClick={toggleIsMenu}
+                        to="/resume"
+                        className={({ isActive }) =>
+                            `flex items-center gap-2 p-2 rounded cursor-pointer ${isActive ? "bg-gray-200 text-black" : "text-gray-100"
+                            } hover:bg-gray-200 hover:text-black`
+                        }
+                    >
                         <DescriptionIcon />
-                        <span>Remview Resume</span>
-                    </li>
+                        <span>Review Resume</span>
+                    </NavLink>
 
                 </ul>
             </section>
@@ -62,7 +127,7 @@ function Sidebar() {
                     <p className="font-bold text-xs">Daniel Ekema</p>
                     <span>free plan</span>
                 </div>
-                < ExitToAppIcon className="cursor-pointer " />
+                < ExitToAppIcon onClick={() => handleSignout()} className="cursor-pointer " />
             </div>
         </aside>
     )

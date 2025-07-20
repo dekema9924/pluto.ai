@@ -30,7 +30,7 @@ export default function Footer() {
                     <p className="text-sm">
                         The latest news, articles, and resources sent to your inbox weekly.
                     </p>
-                    <form className="flex flex-col sm:flex-row gap-2" onSubmit={(e) => e.preventDefault()}>
+                    <form className="flex sm:flex-row gap-2 md:flex-col" onSubmit={(e) => e.preventDefault()}>
                         <input
                             type="email"
                             required

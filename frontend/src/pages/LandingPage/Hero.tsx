@@ -4,6 +4,7 @@ import Testimonial from "./Testimonial"
 import Plan from "./Plan"
 import Footer from "../../components/Footer"
 import Header from "../../components/Header"
+import { Link } from "react-router-dom"
 
 const Hero = () => {
     const logos = [
@@ -21,7 +22,7 @@ const Hero = () => {
             <section className="relative mt-22 flex flex-col items-center justify-center">
                 {/* Gradient overlay */}
                 <div
-                    className="absolute rounded-full  w-[700px] opacity-56 blur-3xl m-auto  inset-0 bg-gradient-to-tr from-[#46278C]/60 via-[#2D00C8]/40 to-[#1E146E]/20"
+                    className="absolute rounded-full border  md:w-[700px] opacity-56 blur-3xl m-auto  inset-0 bg-gradient-to-tr from-[#46278C]/60 via-[#2D00C8]/40 to-[#1E146E]/20"
                     aria-hidden="true"
                 />
 
@@ -43,9 +44,9 @@ const Hero = () => {
                     </p>
 
                     <div className="flex gap-4 my-10">
-                        <button className="px-4 h-12 rounded-md bg-[wheat] text-black cursor-pointer">
+                        <Link to={'/dashboard'} className="px-4 h-12 rounded-md bg-[wheat] flex justify-center items-center text-black cursor-pointer">
                             Start creating now
-                        </button>
+                        </Link>
                         <button className="px-4 h-12 rounded-md bg-transparent text-white cursor-pointer">
                             Watch demo
                         </button>

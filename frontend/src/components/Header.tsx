@@ -5,16 +5,44 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 import useGetUser from '../hooks/useGetUser';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { signoutUser } from '../api/usersApi';
+import { useDispatch } from 'react-redux';
+import { logoffUser } from '../features/userSlice';
+import { useState } from 'react';
 
 const Header = () => {
     const { toggleModal, isModal } = useModal();
     const navigate = useNavigate();
     const { loading } = useGetUser();
+    const dispatch = useDispatch();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
 
     // Ensure user is fetched before accessing it
     const user = useSelector((state: RootState) => state.user);
 
     if (loading) return <p>Loading...</p>;
+
+    // Handle user sign out
+    const handleSignOut = async () => {
+        try {
+            const res = await signoutUser();
+            if (res.status !== 200) {
+                throw new Error('Failed to sign out');
+            }
+            dispatch(logoffUser());
+            navigate('/'); // Redirect to home after sign out
+        } catch (error) {
+            console.error('Sign out failed:', error);
+        }
+    }
+
+    //handle dropdown toggle
+    const handleDropdownToggle = () => {
+        setDropdownOpen(!dropdownOpen);
+    };
 
     return (
         <>
@@ -31,8 +59,40 @@ const Header = () => {
 
                 {
                     user.id ? (
-                        <p onClick={() => navigate('/dashboard')} className=" size-16 rounded-full flex items-center justify-center capitalize font-bole text-2xl bg-orange-600 mr-10 cursor-pointer">{user.name?.slice(0, 1)}</p>
+                        <>
+                            <div className=' relative '>
+                                <p onClick={handleDropdownToggle} className=" size-9 rounded-full flex items-center justify-center capitalize font-bold text-2xl bg-orange-500 mr-10 cursor-pointer">{user.name?.slice(0, 1)}</p>
+                                {/* dropdown */}
+                                <div className={`absolute md:right-14 right-8 transition-all ease-out duration-100 rounded-lg bg-white text-black z-50 top-12  md:w-96 w-80 flex flex-col gap-3  ${dropdownOpen ? 'block py-7 p-4' : 'h-0 overflow-hidden p-0'}`}>
+                                    <div className='flex items-center gap-3'>
+                                        <p className=" size-10 rounded-full flex items-center justify-center capitalize font-bold bg-orange-500 cursor-pointer">{user.name?.slice(0, 1)}</p>
+                                        <div >
+                                            <p>Ben</p>
+                                            <p>Ben@gmail.com</p>
+                                        </div>
 
+
+                                    </div>
+                                    <hr className='bordert-t my-2 border-gray-400 w-full' />
+
+                                    {/* settings */}
+                                    <div className='flex text-gray-600 items-center gap-3 h-10 hover:rounded-lg cursor-pointer hover:bg-gray-200'>
+                                        <SettingsIcon />
+                                        <p>Manage Account</p>
+                                    </div>
+
+                                    <hr className='bordert-t my-2 border-gray-400 w-full' />
+
+                                    {/* logout */}
+
+                                    <div className='flex text-gray-600 items-center gap-3 cursor-pointer hover:bg-gray-200 h-10 hover:rounded-lg '>
+                                        <LogoutIcon />
+                                        <button onClick={() => handleSignOut()}>Sign out</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </>
                     ) : (
                         <button
                             onClick={toggleModal}

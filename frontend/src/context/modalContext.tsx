@@ -6,7 +6,9 @@ type ModalContextType = {
     isSignIn: boolean;
     toggleModal: () => void;
     switchForm: () => void;
-};
+    isMenu: boolean;
+    toggleIsMenu: () => void;
+}
 
 // Create the context with an initial empty default
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -18,15 +20,22 @@ type ModalProviderProps = {
 
 // ModalProvider component
 export const ModalProvider = ({ children }: ModalProviderProps) => {
+    //handles login form modal
     const [isModal, setModal] = useState(false);
-    const [isSignIn, setIsSignIn] = useState(true); // default to sign in
+    // and toggles between sign in and sign up forms
+    // default to sign in
+    const [isSignIn, setIsSignIn] = useState(true);
+
+    // handles menu and sidebar toggles
+    const [isMenu, setIsMenu] = useState(false);
 
 
     const toggleModal = () => { setModal((prev) => !prev) };
     const switchForm = () => setIsSignIn((prev) => !prev);
+    const toggleIsMenu = () => setIsMenu((prev) => !prev);
 
     return (
-        <ModalContext.Provider value={{ isModal, isSignIn, toggleModal, switchForm }}>
+        <ModalContext.Provider value={{ isModal, isSignIn, toggleModal, switchForm, isMenu, toggleIsMenu }}>
             {children}
         </ModalContext.Provider>
     );

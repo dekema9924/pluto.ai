@@ -18,3 +18,9 @@ export const fetchUserProfile = async () => {
     console.log(res.data)
     return res;
 };
+
+export const signoutUser = async () => {
+    const res = await axiosInstance.post('/auth/signout');
+    console.log(res.data)
+    return res;
+}

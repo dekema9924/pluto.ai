@@ -11,7 +11,7 @@ const Plan = () => {
                 <h2 className="text-3xl font-bold text-gray-300 dark:text-gray-100 mb-2">
                     Choose Your Plan
                 </h2>
-                <p className="text-gray-200 w-96 text-center m-auto  mb-12">
+                <p className="text-gray-200 md:w-96 text-center m-auto  mb-12">
                     Start for free and scale up as you grow. Find the perfect plan for your content creation needs.
                 </p>
 

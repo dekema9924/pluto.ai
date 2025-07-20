@@ -1,20 +1,34 @@
 
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import { useModal } from '../../context/modalContext';
+
 
 function DashboardHeader() {
     const navigate = useNavigate()
+    // Access modal context
+    const { isMenu, toggleIsMenu } = useModal();
+
     return (
         <>
-            <header className="flex items-center justify-between h-24 border-b border-gray-800">
+            <header className="flex items-center justify-between h-24   border-b border-[wheat] ">
                 {/* Logo */}
                 <div onClick={() => navigate('/')} className="flex items-center ml-10 cursor-pointer">
                     <div>
-                        <span className="w-4 h-4 bg-[wheat] rounded-full block"></span>
-                        <span className="w-4 h-4 mx-6 bg-[wheat] rounded-full block"></span>
-                        <span className="w-4 h-4 bg-[wheat] rounded-full block"></span>
+                        <span className="w-3 h-3 bg-[wheat] rounded-full block"></span>
+                        <span className="w-3 h-3 mx-6 bg-[wheat] rounded-full block"></span>
+                        <span className="w-3 h-3 bg-[wheat] rounded-full block"></span>
                     </div>
-                    <h1 className="text-[2em] md:text-[3em] font-semibold text-[wheat]">Pluto.ai</h1>
+                    <h1 className="text-[2em] ] font-semibold text-[wheat]">Pluto.ai</h1>
+                </div>
+
+                <div className='mr-10 cursor-pointer md:hidden'>
+                    {
+                        isMenu ? (<CloseIcon onClick={toggleIsMenu} className='text-[wheat] text-2xl' />) :
+                            (<MenuIcon onClick={toggleIsMenu} className='text-[wheat] text-2xl' />)
+                    }
+
                 </div>
 
 
