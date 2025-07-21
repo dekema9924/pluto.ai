@@ -13,7 +13,7 @@ import { logoffUser } from '../features/userSlice';
 import { useState } from 'react';
 
 const Header = () => {
-    const { toggleModal, isModal } = useModal();
+    const { toggleModal, isModal, toggleIsProfile } = useModal();
     const navigate = useNavigate();
     const { loading } = useGetUser();
     const dispatch = useDispatch();
@@ -44,6 +44,13 @@ const Header = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
+
+    // Handle profile modal toggle
+    const handleprofilemodal = () => {
+        toggleIsProfile();
+        setDropdownOpen(false);
+    }
+
     return (
         <>
             <header className="flex items-center justify-between h-44">
@@ -61,14 +68,15 @@ const Header = () => {
                     user.id ? (
                         <>
                             <div className=' relative '>
-                                <p onClick={handleDropdownToggle} className=" size-9 rounded-full flex items-center justify-center capitalize font-bold text-2xl bg-orange-500 mr-10 cursor-pointer">{user.name?.slice(0, 1)}</p>
-                                {/* dropdown */}
+                                <button onClick={handleDropdownToggle} className="flex items-center gap-2  cursor-pointer mr-10 border w-12 h-12 text-xl rounded-full justify-center bg-[wheat] text-black font-bold">
+                                    {user.name?.slice(0, 1)}
+                                </button>                                {/* dropdown */}
                                 <div className={`absolute md:right-14 right-8 transition-all ease-out duration-100 rounded-lg bg-white text-black z-50 top-12  md:w-96 w-80 flex flex-col gap-3  ${dropdownOpen ? 'block py-7 p-4' : 'h-0 overflow-hidden p-0'}`}>
                                     <div className='flex items-center gap-3'>
                                         <p className=" size-10 rounded-full flex items-center justify-center capitalize font-bold bg-orange-500 cursor-pointer">{user.name?.slice(0, 1)}</p>
                                         <div >
-                                            <p>Ben</p>
-                                            <p>Ben@gmail.com</p>
+                                            <p>{user.name}</p>
+                                            <p>{user.email}</p>
                                         </div>
 
 
@@ -76,7 +84,7 @@ const Header = () => {
                                     <hr className='bordert-t my-2 border-gray-400 w-full' />
 
                                     {/* settings */}
-                                    <div className='flex text-gray-600 items-center gap-3 h-10 hover:rounded-lg cursor-pointer hover:bg-gray-200'>
+                                    <div onClick={handleprofilemodal} className='flex text-gray-600 items-center gap-3 h-10 hover:rounded-lg cursor-pointer hover:bg-gray-200'>
                                         <SettingsIcon />
                                         <p>Manage Account</p>
                                     </div>
@@ -106,6 +114,7 @@ const Header = () => {
 
             {/* Auth Modal */}
             {isModal && <AuthModal />}
+
         </>
     );
 };

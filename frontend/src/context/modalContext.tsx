@@ -8,6 +8,9 @@ type ModalContextType = {
     switchForm: () => void;
     isMenu: boolean;
     toggleIsMenu: () => void;
+    isProfile: boolean;
+    toggleIsProfile: () => void;
+
 }
 
 // Create the context with an initial empty default
@@ -22,20 +25,26 @@ type ModalProviderProps = {
 export const ModalProvider = ({ children }: ModalProviderProps) => {
     //handles login form modal
     const [isModal, setModal] = useState(false);
+    const toggleModal = () => { setModal((prev) => !prev) };
+
     // and toggles between sign in and sign up forms
-    // default to sign in
     const [isSignIn, setIsSignIn] = useState(true);
+    const switchForm = () => setIsSignIn((prev) => !prev);
+
 
     // handles menu and sidebar toggles
     const [isMenu, setIsMenu] = useState(false);
-
-
-    const toggleModal = () => { setModal((prev) => !prev) };
-    const switchForm = () => setIsSignIn((prev) => !prev);
     const toggleIsMenu = () => setIsMenu((prev) => !prev);
 
+
+    // handles profile toggles
+    const [isProfile, setIsProfile] = useState(false);
+    const toggleIsProfile = () => setIsProfile((prev) => !prev);
+
+
+
     return (
-        <ModalContext.Provider value={{ isModal, isSignIn, toggleModal, switchForm, isMenu, toggleIsMenu }}>
+        <ModalContext.Provider value={{ isModal, isSignIn, toggleModal, switchForm, isMenu, toggleIsMenu, isProfile, toggleIsProfile }}>
             {children}
         </ModalContext.Provider>
     );

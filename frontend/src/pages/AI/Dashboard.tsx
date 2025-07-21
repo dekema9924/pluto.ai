@@ -1,7 +1,6 @@
 
-import React from 'react'
 
-function DashBoard() {
+function Dashboard() {
     return (
         <div className=''>
             <h1 className="text-2xl font-bold  ">Welcome to the AI Dashboard</h1>
@@ -10,4 +9,4 @@ function DashBoard() {
     )
 }
 
-export default DashBoard
+export default Dashboard

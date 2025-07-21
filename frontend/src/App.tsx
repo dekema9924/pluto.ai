@@ -6,7 +6,7 @@ import RemoveBackground from "./pages/AI/RemoveBackground"
 import GenerateImages from "./pages/AI/GenerateImages"
 import WriteArticle from './pages/AI/WriteArticle'
 import ReviewResume from "./pages/AI/ReviewResume"
-import Dashboard from "./pages/AI/DashBoard"
+import Dashboard from "./pages/AI/Dashboard"
 
 
 function App() {
@@ -27,6 +27,12 @@ function App() {
             <Route path="write" element={<WriteArticle />} />
             <Route path="resume" element={<ReviewResume />} />
           </Route>
+
+
+
+          {/* // Profile Page routes */}
+
+
         </Route>
       </Routes>
 

@@ -49,9 +49,10 @@ const Service = () => {
                                         initial={{ x: -10, opacity: 0 }}
                                         whileInView={{ y: 0, opacity: 1 }}
                                         transition={{
-                                            duration: 3, amount: 0.7
+                                            duration: 3
 
                                         }}
+                                        viewport={{ amount: 0.7 }}
                                         className="border w-11/12 border-[wheat] rounded-md p-4 bg-black text-white md:w-66 h-44"
                                         key={indx}>
                                         <img className="pb-2 w-10" loading="lazy" src={service.icon} alt="serviceIcon" />
