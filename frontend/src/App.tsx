@@ -7,11 +7,14 @@ import GenerateImages from "./pages/AI/GenerateImages"
 import WriteArticle from './pages/AI/WriteArticle'
 import ReviewResume from "./pages/AI/ReviewResume"
 import Dashboard from "./pages/AI/Dashboard"
+import { Toaster } from 'react-hot-toast';
+
 
 
 function App() {
   return (
     <>
+      <Toaster />
       <Routes>
         {/* Public Route */}
         <Route path="/" element={<Hero />} />

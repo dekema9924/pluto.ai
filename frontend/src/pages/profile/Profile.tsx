@@ -6,6 +6,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux'
 import { addProfileImage } from '../../api/usersApi';
+import toast from 'react-hot-toast';
 
 
 
@@ -20,8 +21,7 @@ function Billing() {
     // get user
     const user = useSelector((state: any) => state.user);
 
-    console.log(user)
-
+    // This toggles the visibility of the profile update section
     const handleUpdateProfileClick = () => {
         setUpdateProfileClicked(!updateprofileClicked);
 
@@ -34,18 +34,27 @@ function Billing() {
     };
 
     // Handle save click
-    const handleSaveClick = () => {
+    const handleSaveClick = async () => {
         if (file) {
             console.log('Saving file:', file);
             // upload or process the file here
-            // if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-            //     alert('Please upload a valid image file (JPEG or PNG)');
-            //     return;
-            // }
-            addProfileImage(file)
-            window.location.reload();
+            if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                toast.error('Please upload a valid image file');
+                return;
+            }
+            const res = await addProfileImage(file)
+            setFile(null);
+            toast.success(res.data.message);
+
+            setTimeout(() => {
+                setUpdateProfileClicked(false);
+                window.location.reload(); // Reload to reflect changes
+            }, 1000)
+
         } else {
             console.log('No file selected');
+            toast.error('Please select a file to upload');
+            return;
         }
     };
 
@@ -100,6 +109,7 @@ function Billing() {
                                                     <input
                                                         type="file"
                                                         name="avatar"
+                                                        accept="image/*"
                                                         ref={fileInputRef}
                                                         style={{ display: 'none' }}
                                                         onChange={(e) => { handleFileChange(e) }}

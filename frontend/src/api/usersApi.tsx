@@ -15,13 +15,13 @@ export const loginUser = async (email: string, password: string) => {
 
 export const fetchUserProfile = async () => {
     const res = await axiosInstance.get('/auth/profile');
-    console.log(res.data)
+    // console.log(res.data)
     return res;
 };
 
 export const signoutUser = async () => {
     const res = await axiosInstance.post('/auth/signout');
-    console.log(res.data)
+    // console.log(res.data)
     return res;
 }
 
@@ -34,6 +34,12 @@ export const addProfileImage = async (file: File) => {
             'Content-Type': 'multipart/form-data'
         }
     });
-    console.log(res.data);
+    // console.log(res.data);
+    return res;
+}
+
+export const updatePassword = async (new_password: string, confirm_password: string) => {
+    const res = await axiosInstance.post('/auth/resetpassword', { new_password, confirm_password });
+    // console.log(res.data)
     return res;
 }

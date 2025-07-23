@@ -48,7 +48,7 @@ const uploadProfileImage = async (req, res) => {
 
         if (saveUrl) {
             console.log("Profile image URL saved:");
-            return res.status(200).json({ message: ' upload successfully', url: result.secure_url });
+            return res.status(200).json({ message: ' upload successfully' });
         }
 
 

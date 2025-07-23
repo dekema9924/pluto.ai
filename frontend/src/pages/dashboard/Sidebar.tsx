@@ -122,12 +122,17 @@ function Sidebar() {
 
             {/* //profile image */}
             <div className="flex  items-center gap-2 p-4 border-t border-gray-700">
-                <img className="size-16 rounded-full object-contain object-center" src="https://placehold.co/400" alt="profileImage" />
-                <div>
-                    <p className="font-bold text-xs">Daniel Ekema</p>
-                    <span>free plan</span>
+                {
+                    user.profileImage ? (
+                        <img className="size-8 rounded-full object-contain object-center" src={user.profileImage} alt="profileImage" />
+                    ) : (
+                        <p className=" size-8 rounded-full flex items-center justify-center capitalize font-bole text-2xl bg-orange-600">{user.name?.slice(0, 1)}</p>
+                    )
+                }                <div>
+                    <p className="font-bold text-md capitalize">{user.name}</p>
+                    <span className="text-[wheat] capitalize text-sm">free plan</span>
                 </div>
-                < ExitToAppIcon onClick={() => handleSignout()} className="cursor-pointer " />
+                < ExitToAppIcon onClick={() => handleSignout()} className="cursor-pointer text-red-500 " />
             </div>
         </aside>
     )
