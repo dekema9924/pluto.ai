@@ -1,7 +1,6 @@
 
 
-import { delay, easeIn, motion } from 'motion/react'
-
+import { motion } from 'motion/react'
 function Testimonial() {
     return (
         <>
@@ -37,8 +36,9 @@ function Testimonial() {
 
                                 <motion.div
                                     initial={{ opacity: 0, x: 10 }}
-                                    whileInView={{ opacity: 1, easeIn, x: 0 }}
-                                    transition={{ amount: 0.7 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ amount: 0.5 }}
+
                                     className="flex flex-col overflow-hidden shadow-xl">
                                     <div className="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
                                         <div className="flex-1">
@@ -88,8 +88,9 @@ function Testimonial() {
                                 {/* 2nd client */}
                                 <motion.div
                                     initial={{ opacity: 0, x: 10 }}
-                                    whileInView={{ opacity: 1, easeIn, x: 0 }}
-                                    transition={{ amount: 0.7, delay: 0.5 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.5 }}
+                                    viewport={{ amount: 0.5 }}
                                     className="flex flex-col overflow-hidden shadow-xl">
                                     <div className="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
                                         <div className="flex-1">
@@ -139,8 +140,9 @@ function Testimonial() {
                                 {/* 3rd client */}
                                 <motion.div
                                     initial={{ opacity: 0, x: 10 }}
-                                    whileInView={{ opacity: 1, easeIn, x: 0 }}
-                                    transition={{ amount: 0.7, delay: 0.9 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.9 }}
+                                    viewport={{ amount: 0.5 }}
                                     className="flex flex-col overflow-hidden shadow-xl">
                                     <div className="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
                                         <div className="flex-1">

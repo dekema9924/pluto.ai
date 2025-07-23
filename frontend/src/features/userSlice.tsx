@@ -25,10 +25,10 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        loginUser: (state, action) => {
+        loginUser: (_state, action) => {
             return action.payload
         },
-        logoffUser: (state) => {
+        logoffUser: (_state) => {
             return initialState
         }
     }

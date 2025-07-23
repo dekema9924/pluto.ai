@@ -1,6 +1,5 @@
 
 import { useModal } from "../../context/modalContext";
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import Profile from "./Profile";
 import Security from './Security';
