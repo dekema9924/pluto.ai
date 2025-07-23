@@ -24,3 +24,16 @@ export const signoutUser = async () => {
     console.log(res.data)
     return res;
 }
+
+export const addProfileImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    const res = await axiosInstance.post('/auth/uploadprofile', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+    console.log(res.data);
+    return res;
+}

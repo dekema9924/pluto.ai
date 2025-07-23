@@ -7,6 +7,7 @@ const userRouter = require('./routes/userRoutes')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
+
 //cors config
 const allowedOrigins = ['http://localhost:5173']; // array of allowed origins
 
