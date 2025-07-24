@@ -37,10 +37,11 @@ function Sidebar() {
     }
 
     if (loading) return <p>...loading</p>
+
     return (
         <aside
-            className={`fixed top-14 z-50 flex mt-11 flex-col justify-evenly h-screen w-64 bg-[#272727] p-4 transition-transform duration-500 ease-in-out border border-gray-700
-  ${isMenu ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+            className={`fixed top-14 z-50 flex mt-11 flex-col md:justify-evenly h-screen w-64 bg-[#272727] p-4 transition-transform duration-500 ease-in-out border border-gray-700
+            ${isMenu ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
         >            {/* //profile image */}
             <section >
                 <div className="flex flex-col items-center justify-center gap-2 p-4">
