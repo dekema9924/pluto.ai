@@ -4,6 +4,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { loginUser } from '../../api/usersApi';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 
 interface userInterface {
@@ -38,6 +39,7 @@ const SignInForm: React.FC = () => {
             const res = await loginUser(userInput.email, userInput.password);
 
             if (res.status === 201 || res.status === 200) {
+                toast.success(res.data.message)
                 toggleModal()
                 navigate('/dashboard')
             } else {

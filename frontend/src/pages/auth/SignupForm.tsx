@@ -4,6 +4,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import validator from 'validator'
 import { createuser } from '../../api/usersApi';
+import toast from 'react-hot-toast';
 
 
 const SignupForm: React.FC = () => {
@@ -61,12 +62,15 @@ const SignupForm: React.FC = () => {
             const res = await createuser(userInput.email, userInput.password, userInput.name);
 
             if (res.status === 201 || res.status === 200) {
+                toast.success(res.data.message)
                 switchForm()
             } else {
                 // handle other status codes or errors
                 console.error('Signup failed:', res.status);
             }
         } catch (err: any) {
+            toast.error(err.data.message)
+
             console.error('Signup error:', err.response?.data || err.message);
         }
     };
