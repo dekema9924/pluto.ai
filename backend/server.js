@@ -9,7 +9,10 @@ const cors = require('cors')
 
 
 //cors config
-const allowedOrigins = ['http://localhost:5173']; // array of allowed origins
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://plutoa1.netlify.app'
+];
 
 app.use(cors({
     origin: function (origin, callback) {

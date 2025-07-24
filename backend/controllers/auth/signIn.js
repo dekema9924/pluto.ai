@@ -30,8 +30,8 @@ module.exports = signIn = async (req, res) => {
         // Set secure cookie options
         res.cookie('token', jwtToken, {
             httpOnly: true,         // Prevents JavaScript access (XSS protection)
-            secure: process.env.NODE_ENV === 'production', // Only send cookie over HTTPS
-            sameSite: 'Strict',     // Prevents CSRF in most cases
+            sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
+            secure: process.env.NODE_ENV !== 'development',
             maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
         })
             .status(200)

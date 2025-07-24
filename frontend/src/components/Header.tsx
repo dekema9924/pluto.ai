@@ -53,11 +53,11 @@ const Header = () => {
 
     return (
         <>
-            <header className="flex items-center justify-between h-44">
+            <header className="flex items-center gap-10  justify-between h-44">
                 {/* Logo */}
-                <div onClick={() => navigate('/')} className="flex items-center ml-10 cursor-pointer">
+                <div onClick={() => navigate('/')} className="flex items-center md:ml-10 ml-5 cursor-pointer">
                     <div>
-                        <span className="w-4 h-4 bg-[wheat] rounded-full block"></span>
+                        <span className="w-4 h-4  bg-[wheat] rounded-full block"></span>
                         <span className="w-4 h-4 mx-6 bg-[wheat] rounded-full block"></span>
                         <span className="w-4 h-4 bg-[wheat] rounded-full block"></span>
                     </div>
@@ -109,7 +109,7 @@ const Header = () => {
                     ) : (
                         <button
                             onClick={toggleModal}
-                            className="border-2 cursor-pointer mr-10 w-42 h-12 rounded-md bg-[wheat] text-black font-bold"
+                            className="border-2 text-sm cursor-pointer mr-10 w-42 h-12 rounded-md bg-[wheat] text-black font-bold"
                         >
                             Get Started
                         </button>
