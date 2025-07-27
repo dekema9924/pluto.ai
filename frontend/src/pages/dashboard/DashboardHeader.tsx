@@ -12,7 +12,7 @@ function DashboardHeader() {
 
     return (
         <>
-            <header className="flex items-center justify-between h-24   border-b border-[wheat] ">
+            <header className="flex fixed w-full z-50 bg-[#2b2a2a] top-0 items-center justify-between h-24   border-b border-[wheat] ">
                 {/* Logo */}
                 <div onClick={() => navigate('/')} className="flex items-center ml-10 cursor-pointer">
                     <div>
@@ -23,7 +23,7 @@ function DashboardHeader() {
                     <h1 className="text-[2em] ] font-semibold text-[wheat]">Pluto.ai</h1>
                 </div>
 
-                <div className='mr-10 cursor-pointer md:hidden'>
+                <div className='mr-10 cursor-pointer lg:hidden'>
                     {
                         isMenu ? (<CloseIcon onClick={toggleIsMenu} className='text-[wheat] text-2xl' />) :
                             (<MenuIcon onClick={toggleIsMenu} className='text-[wheat] text-2xl' />)
