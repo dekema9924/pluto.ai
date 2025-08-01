@@ -26,28 +26,41 @@ export default function GenerateImages() {
 
     const HandleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setFormSubmitted(true)
+        setFormSubmitted(true);
 
-        if (description.length == 0) {
-            toast.error('enter a description')
-
+        if (description.length === 0) {
+            toast.error('Enter a description');
+            return; // stop here if no description
         }
+
         try {
-            const res = await generateImage(description, selectedStyle, isPublic)
-            if (res) {
-                setIsLoading(false)
-                setAiResponse(res.data.imageUrl)
-                setFormSubmitted(false)
+            setIsLoading(true);
 
-            }
+            const res = await generateImage(description, selectedStyle, isPublic);
 
-        } catch (err) {
-            console.error(err)
+            // If generateImage returns Axios response
+            setAiResponse(res.data.imageUrl);
+            setFormSubmitted(false);
+            setIsLoading(false);
 
+        } catch (err: any) {
+            console.error(err);
+
+            // Try to get error message from common places:
+            const message =
+                err.response?.data?.error ||
+                err.message ||
+                'Something went wrong';
+
+            setIsLoading(false);
+            setAiResponse("");
+            setFormSubmitted(false);
+            toast.error(message);
         }
 
-        console.log(description, selectedStyle, isPublic)
+        console.log(description, selectedStyle, isPublic);
     };
+
 
     return (
         <main className="flex  md:flex-row flex-col gap-6 px-4 py-6 bg-[#413f3f]">

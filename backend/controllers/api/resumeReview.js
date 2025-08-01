@@ -1,5 +1,6 @@
 const pdfParse = require('pdf-parse');
 const genAI = require('../../config/gemini');
+const logApiUsage = require('../../middleware/logApiUsage');
 
 
 const resumeReview = async (req, res) => {
@@ -48,6 +49,7 @@ Return:
         const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
         const result = await model.generateContent(prompt);
         const response = await result.response.text();
+
 
         res.status(200).json({ feedback: response });
 

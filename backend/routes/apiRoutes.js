@@ -6,6 +6,7 @@ const generateImage = require('../controllers/api/generateImage')
 const resumeReview = require('../controllers/api/ResumeReview')
 const apiRouter = express.Router()
 const multer = require('multer')
+const logApiUsage = require('../middleware/logApiUsage')
 const storage = multer.memoryStorage()
 const upload = multer({
     storage: storage,
@@ -27,11 +28,9 @@ const upload = multer({
 apiRouter.use(verifyToken)
 
 //api routes
-apiRouter.post('/write-article', writeArticle)
-apiRouter.post('/generate-image', generateImage)
-apiRouter.post('/resume-review', upload.single('resume'), resumeReview)
-
-
+apiRouter.post('/write-article', logApiUsage('write-article'), writeArticle)
+apiRouter.post('/generate-image', logApiUsage('image-generation'), generateImage)
+apiRouter.post('/resume-review', upload.single('resume'), logApiUsage('resume-review'), resumeReview)
 
 
 

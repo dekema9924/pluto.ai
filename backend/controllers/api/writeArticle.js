@@ -1,4 +1,6 @@
 const genAI = require('../../config/gemini');
+const logApiUsage = require('../../middleware/logApiUsage');
+const apiDb = require('../../models/apiModel')
 
 const writeArticle = async (req, res) => {
     try {
@@ -39,6 +41,7 @@ Make the article engaging, informative, and fact-based.`
         // extract text
         const response = result.response;
         const article = response.text();
+
 
         res.status(200).json({ article });
     } catch (err) {

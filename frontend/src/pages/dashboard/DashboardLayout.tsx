@@ -14,10 +14,10 @@ function DashboardLayout() {
                 </div>
 
                 <main
-                    className="flex-1 z-40 relative  p-4 bg-[#2b2a2a] lg:ml-66 h-fit flex mt-22 "
+                    className="flex-1 z-40 relative  w-full  p-4 bg-[#2b2a2a] lg:ml-66 h-fit flex mt-22 "
                 >
                     {/*  This changes based on the current route */}
-                    <div className=" ">
+                    <div className="  ">
                         <Outlet />
                     </div>
                 </main>

@@ -3,8 +3,7 @@ const FormData = require('form-data');
 
 const generateImage = async (req, res) => {
     const { description, style, ispublic } = req.body;
-
-    const imagePrompt = `Generate an image in the ${style} style: ${description}`;
+    const imagePrompt = `Generate an image in the ${style}: ${description}`;
     console.log('🖼 Prompt sent to DeepAI:', imagePrompt);
 
     try {
@@ -15,9 +14,9 @@ const generateImage = async (req, res) => {
             method: 'POST',
             headers: {
                 'api-key': process.env.DEEPAIAPI_KEY,
-                ...formData.getHeaders()
+                ...formData.getHeaders(),
             },
-            body: formData
+            body: formData,
         });
 
         const data = await resp.json();
@@ -25,10 +24,13 @@ const generateImage = async (req, res) => {
         if (resp.ok && data.output_url) {
             res.status(200).json({ imageUrl: data.output_url, ispublic });
         } else {
-            console.error('DeepAI Error:', data);
+            if (data.err && data.err.toLowerCase().includes('potentially unsafe content')) {
+                return res.status(400).json({
+                    error: 'Your prompt was flagged as potentially unsafe. Please adjust it and try again.',
+                });
+            }
             res.status(500).json({ error: 'DeepAI image generation failed', details: data });
         }
-
     } catch (err) {
         console.error('Error:', err);
         res.status(500).json({ error: 'Failed to generate image' });

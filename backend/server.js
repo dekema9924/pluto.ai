@@ -2,11 +2,13 @@ require('dotenv').config()
 require('./config/mongoose')
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
+const port = 3000
 const userRouter = require('./routes/userRoutes')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const apiRouter = require('./routes/apiRoutes')
+const dashboardRouter = require('./routes/Dashboard')
+
 
 
 //cors config
@@ -35,6 +37,7 @@ app.use(express.json()) //parse json
 app.use(express.urlencoded({ extended: true }))
 app.use('/auth', userRouter)
 app.use('/api', apiRouter)
+app.use('/dashboard', dashboardRouter)
 
 
 
@@ -46,7 +49,7 @@ app.listen(port, () => {
 
 //test route
 app.get('/', (req, res) => {
-    res.send('server')
+    res.send('open server')
 })
 
 

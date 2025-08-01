@@ -8,7 +8,7 @@ const apiSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['write_article', 'image_generation', 'background_removal', 'resume_review'],
+        enum: ['write-article', 'image-generation', 'background-removal', 'resume-review'],
         required: true
     },
     createdAt: {
