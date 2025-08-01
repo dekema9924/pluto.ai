@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image as ImageIcon, Public as PublicIcon } from '@mui/icons-material';
+import { Image as ImageIcon, Public as _PublicIcon } from '@mui/icons-material';
 import toast, { LoaderIcon } from 'react-hot-toast';
 import { generateImage } from '../../api/geminiApi';
 

@@ -1,7 +1,7 @@
 import DescriptionIcon from '@mui/icons-material/Description';
 import { useState } from 'react';
 import toast, { LoaderIcon } from 'react-hot-toast';
-import { getArticle, reviewResume } from '../../api/geminiApi';
+import { reviewResume } from '../../api/geminiApi';
 import ReactMarkdown from 'react-markdown';
 
 
