@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000
 const userRouter = require('./routes/userRoutes')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const apiRouter = require('./routes/apiRoutes')
 
 
 //cors config
@@ -33,6 +34,7 @@ app.use(cookieParser())
 app.use(express.json()) //parse json
 app.use(express.urlencoded({ extended: true }))
 app.use('/auth', userRouter)
+app.use('/api', apiRouter)
 
 
 

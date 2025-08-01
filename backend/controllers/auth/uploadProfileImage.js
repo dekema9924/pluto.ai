@@ -10,7 +10,6 @@ const uploadProfileImage = async (req, res) => {
     if (!file) {
         return res.status(400).send("No file uploaded.");
     }
-    console.log(file)
 
     // Upload an image
     try {

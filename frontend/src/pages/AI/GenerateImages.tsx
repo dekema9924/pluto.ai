@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Image as ImageIcon, Public as PublicIcon } from '@mui/icons-material';
+import toast, { LoaderIcon } from 'react-hot-toast';
+import { generateImage } from '../../api/geminiApi';
 
 const styles = [
     'Realistic',
@@ -16,12 +18,34 @@ export default function GenerateImages() {
     const [description, setDescription] = useState('');
     const [selectedStyle, setSelectedStyle] = useState('Realistic');
     const [isPublic, setIsPublic] = useState(false);
+    const [isloading, setIsLoading] = useState<boolean>(true)
+    const [isFormSubmitted, setFormSubmitted] = useState(false)
+    const [aiResponse, setAiResponse] = useState<string>("")
 
 
 
-    const HandleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-
+    const HandleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setFormSubmitted(true)
+
+        if (description.length == 0) {
+            toast.error('enter a description')
+
+        }
+        try {
+            const res = await generateImage(description, selectedStyle, isPublic)
+            if (res) {
+                setIsLoading(false)
+                setAiResponse(res.data.imageUrl)
+                setFormSubmitted(false)
+
+            }
+
+        } catch (err) {
+            console.error(err)
+
+        }
+
         console.log(description, selectedStyle, isPublic)
     };
 
@@ -78,21 +102,62 @@ export default function GenerateImages() {
                 </div>
 
                 {/* Generate Button */}
-                <button
-                    type="submit"
-                    className="mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-300 to-yellow-500 text-black px-4 py-2 rounded-xl hover:bg-yellow-300 transition"
-                >
-                    <ImageIcon />
-                    Generate Image
-                </button>
+                {
+
+                    isFormSubmitted ?
+                        <>
+                            <button
+                                type="submit"
+                                className="mt-6 w-full  cursor-progress pointer-events-none flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-300 to-yellow-500 text-black px-4 py-2 rounded-xl hover:bg-yellow-300 transition"
+                            >
+                                Generating image
+                                <LoaderIcon />
+                            </button>
+                        </>
+                        : <>
+                            <button
+                                type="submit"
+                                className="mt-6 w-full flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-300 to-yellow-500 text-black px-4 py-2 rounded-xl hover:bg-yellow-300 transition"
+                            >
+                                <ImageIcon />
+                                Generate Image
+                            </button>
+                        </>
+                }
+
             </form>
 
             {/* Right Panel */}
-            <div className="bg-white shadow-md rounded-xl p-6 w-full md:w-1/2 flex flex-col items-center justify-center text-gray-500 text-center">
-                <ImageIcon sx={{ fontSize: 60, color: '#c4c4c4' }} />
-                <p className="mt-2">
-                    Enter a topic and click <strong>“Generate image”</strong> to get started
-                </p>
+            <div className="bg-white shadow-md rounded-xl p-2 w-full md:w-1/2 max-h-[600px] flex flex-col items-center justify-center text-gray-500 text-center">
+
+
+                {!isFormSubmitted && isloading && (
+                    <div>
+                        <ImageIcon sx={{ fontSize: 60, color: '#c4c4c4' }} />
+
+                        <p className="text-sm md:text-base text-gray-500">Enter a topic and click <strong>“Generate image”</strong> to get started</p>
+                    </div>
+                )}
+
+                {/* Loading state */}
+                {isFormSubmitted && isloading && (
+                    <div className="flex items-center gap-2 text-xl text-gray-600">
+                        <LoaderIcon />
+                        <span>AI is Thinking ...</span>
+                    </div>
+                )}
+
+                {/* Article display */}
+                {aiResponse && (
+                    <div className="flex justify-center items-center w-full h-full">
+                        <img
+                            className=" object-contain rounded-lg shadow-2xl"
+                            src={aiResponse}
+                            alt="aiImage"
+                        />
+                    </div>
+
+                )}
             </div>
         </main>
     );
