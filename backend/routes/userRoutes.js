@@ -10,6 +10,7 @@ const uploadProfileImage = require('../controllers/auth/uploadProfileImage')
 const userRouter = express.Router()
 const multer = require('multer')
 const resetPassword = require('../controllers/auth/resetPassword')
+const verifyEmail = require('../controllers/auth/verifyEmail')
 const storage = multer.memoryStorage()
 const upload = multer({
     storage: storage,
@@ -32,9 +33,11 @@ userRouter.get('/', (req, res) => {
 //signup
 userRouter.post('/signup', signUp);
 userRouter.post('/signin', signIn)
+userRouter.get('/:id/verify/:token', verifyEmail);
 userRouter.get('/profile', verifyToken, Profile)
 userRouter.post('/signout', verifyToken, signOut)
 userRouter.post('/uploadprofile', verifyToken, upload.single('avatar'), uploadProfileImage)
 userRouter.post('/resetpassword', verifyToken, resetPassword)
+
 
 module.exports = userRouter

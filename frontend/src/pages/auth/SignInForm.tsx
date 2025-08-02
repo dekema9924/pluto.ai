@@ -41,7 +41,7 @@ const SignInForm: React.FC = () => {
             if (res.status === 201 || res.status === 200) {
                 toast.success(res.data.message)
                 toggleModal()
-                navigate('/dashboard')
+                navigate('/')
             } else {
                 // handle other status codes or errors
                 console.error('Signup failed:', res.status);

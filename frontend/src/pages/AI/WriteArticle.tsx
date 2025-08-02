@@ -47,7 +47,7 @@ function Article() {
     return (
         <main className="flex md:flex-row  flex-col gap-6 px-4 py-6 bg-[#413f3f] ">
             {/* Configuration Panel */}
-            <div className="bg-white shadow-md rounded-xl p-6 w-full md:w-1/2 md:max-h-[380px]">
+            <div className="bg-white shadow-md rounded-xl p-6 w-full md:w-1/2 md:max-h-[480px]">
                 <div className="flex items-center gap-2 mb-5 text-2xl text-black">
                     <ArticleIcon sx={{ fontSize: '2rem', color: 'oklch(70.7% 0.165 254.624)' }} />
                     <h1 className="font-bold text-lg md:text-xl">Article Configuration</h1>
