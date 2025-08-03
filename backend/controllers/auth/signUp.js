@@ -45,7 +45,7 @@ module.exports = signUp = async (req, res) => {
             console.log(newToken)
 
             //create url
-            const actionUrl = `${process.env.BASEURL}/auth/${newUser._id}/verify/${newToken.token}`
+            const actionUrl = `${process.env.NODE_ENV == 'developement' ? process.env.BASEURL : process.env.PRODURL}/auth/${newUser._id}/verify/${newToken.token}`
 
             //send email
             sendEmail(

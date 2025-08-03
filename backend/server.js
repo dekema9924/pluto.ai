@@ -14,7 +14,6 @@ const dashboardRouter = require('./routes/Dashboard')
 //cors config
 const allowedOrigins = [
     'http://localhost:5173',
-    'http://localhost:5174',
     'https://plutoa1.netlify.app'
 ];
 
