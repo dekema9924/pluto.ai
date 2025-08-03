@@ -72,7 +72,7 @@ const Header = () => {
                                     user.profileImage ?
                                         <img onClick={handleDropdownToggle} src={user.profileImage} alt="Profile" className='w-13 cursor-pointer mr-10  h-13 rounded-full object-cover' />
                                         :
-                                        <button onClick={handleDropdownToggle} className="flex items-center gap-2  cursor-pointer mr-10 border w-12 h-12 text-xl rounded-full justify-center bg-[wheat] text-black font-bold">
+                                        <button onClick={handleDropdownToggle} className="flex uppercase items-center gap-2  cursor-pointer mr-10 border w-12 h-12 text-xl rounded-full justify-center bg-[wheat] text-black font-bold">
                                             {user.name?.slice(0, 1)}
                                         </button>
                                 }
@@ -83,7 +83,7 @@ const Header = () => {
                                             user.profileImage ?
                                                 <img onClick={handleDropdownToggle} src={user.profileImage} alt="Profile" className='w-13 cursor-pointer  h-13 rounded-full object-cover' />
                                                 :
-                                                <button onClick={handleDropdownToggle} className="flex items-center gap-2  cursor-pointer  border w-12 h-12 text-xl rounded-full justify-center bg-[wheat] text-black font-bold">
+                                                <button onClick={handleDropdownToggle} className="flex items-center gap-2  cursor-pointer uppercase w-12 h-12 text-xl rounded-full justify-center bg-[wheat] text-black font-bold">
                                                     {user.name?.slice(0, 1)}
                                                 </button>
                                         }                                        <div >

@@ -5,6 +5,9 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import validator from 'validator'
 import { createuser } from '../../api/usersApi';
 import toast from 'react-hot-toast';
+import CheckEmail from '../../components/CheckEmail';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store/store';
 
 
 const SignupForm: React.FC = () => {
@@ -24,7 +27,18 @@ const SignupForm: React.FC = () => {
     const [ispasswordtext, setpasswordText] = useState('password')
     const [emailerr, setEmailErr] = useState("")
     const [passworderr, setPasswordErr] = useState("")
+    const [showCheckEmailModal, setCheckEmailModal] = useState(false);
 
+    const user = useSelector((state: RootState) => state.user)
+
+    console.log(user)
+
+
+    const handleClose = () => {
+        setCheckEmailModal(false);
+        switchForm()
+
+    };
 
     const HandleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput({
@@ -62,8 +76,10 @@ const SignupForm: React.FC = () => {
             const res = await createuser(userInput.email, userInput.password, userInput.name);
 
             if (res.status === 201 || res.status === 200) {
+                if (user && !user.isVerified) {
+                    setCheckEmailModal(true);
+                }
                 toast.success(res.data.message)
-                switchForm()
             } else {
                 // handle other status codes or errors
                 console.error('Signup failed:', res.status);
@@ -76,8 +92,17 @@ const SignupForm: React.FC = () => {
     };
 
 
+
     return (
+
         <div className="flex absolute inset-0 m-auto  z-50 justify-center items-center min-h-screen ">
+            {showCheckEmailModal && (
+                <CheckEmail
+                    open={showCheckEmailModal}
+                    onClose={handleClose}
+                    email={userInput.email}
+                />
+            )}
             <div className="w-full max-w-md rounded-xl shadow-lg p-6 border text-black bg-white relative">
                 {/* Close Button */}
                 <button
@@ -193,6 +218,7 @@ const SignupForm: React.FC = () => {
                         Secured by <strong>Firebase</strong>
                     </p>
                 </div> */}
+
             </div>
         </div>
     );

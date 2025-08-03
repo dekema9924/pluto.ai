@@ -2,7 +2,6 @@ const Userdb = require('../../models/UserModel')
 const bcrypt = require('bcryptjs')
 var validator = require('validator');
 const tokenDb = require('../../models/tokenModel')
-const crypto = require('crypto');
 const sendEmail = require('../../utils/sendEmail');
 
 

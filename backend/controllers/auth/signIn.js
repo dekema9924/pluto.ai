@@ -16,26 +16,45 @@ module.exports = signIn = async (req, res) => {
     bcrypt.compare(password, userExist.password, function (err, result) {
         if (err) {
             console.error('bcrypt error:', err);
-            return;
+            return res.status(500).json({ message: 'Server error' });
         }
-        if (!result) return res.status(400).json({ message: 'invalid credentials' })
 
-        // Create JWT token with a short expiration
+        if (!result) return res.status(400).json({ message: 'Invalid credentials' });
+
+        //  BLOCK login if user is not verified
+        if (!userExist.isVerified) {
+            return res.status(401).json({
+                message: 'Please verify your email before signing in.',
+                user: {
+                    _id: userExist._id,
+                    email: userExist.email,
+                    isVerified: false
+                }
+            });
+        }
+
+        //  Generate JWT and set cookie
         const jwtToken = jwt.sign(
             { userId: userExist._id },
             process.env.JWT_SECRET,
             { expiresIn: '1d' }
         );
 
-        // Set secure cookie options
         res.cookie('token', jwtToken, {
-            httpOnly: true,         // Prevents JavaScript access (XSS protection)
+            httpOnly: true,
             sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'none',
             secure: process.env.NODE_ENV !== 'development',
-            maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
-        })
-            .status(200)
-            .json({ message: 'Login success' });
+            maxAge: 24 * 60 * 60 * 1000
+        });
+
+        return res.status(200).json({
+            message: 'Login success',
+            user: {
+                _id: userExist._id,
+                email: userExist.email,
+                isVerified: userExist.isVerified
+            }
+        });
     });
 
 }

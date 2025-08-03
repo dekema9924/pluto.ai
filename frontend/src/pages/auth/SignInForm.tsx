@@ -3,9 +3,9 @@ import { useModal } from '../../context/modalContext';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { loginUser } from '../../api/usersApi';
-import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+import CheckEmail from '../../components/CheckEmail';
 
 interface userInterface {
     email: string
@@ -20,7 +20,8 @@ const SignInForm: React.FC = () => {
     const [ispasswordtext, setpasswordText] = useState('password')
     const [err, setErr] = useState("")
     const { toggleModal, switchForm } = useModal()
-    const navigate = useNavigate()
+    const [showCheckEmailModal, setCheckEmailModal] = useState(false);
+
 
     const HandleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput({
@@ -31,31 +32,60 @@ const SignInForm: React.FC = () => {
         setErr("")
     }
 
+    const handleClose = () => {
+        setCheckEmailModal(false);
+
+    };
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        //create user
         try {
             const res = await loginUser(userInput.email, userInput.password);
 
             if (res.status === 201 || res.status === 200) {
-                toast.success(res.data.message)
-                toggleModal()
-                navigate('/')
+                if (res.data.user && !res.data.user.isVerified) {
+
+                    // Show modal instead of redirect
+                    setCheckEmailModal(true);
+                    toast.error("Please verify your email before signing in.");
+                    return;
+                }
+
+                toast.success(res.data.message);
+                toggleModal();
+
+                window.location.href = '/';
+
             } else {
-                // handle other status codes or errors
-                console.error('Signup failed:', res.status);
+                console.error('Login failed:', res.status);
             }
         } catch (err: any) {
-            console.error('Signup error:', err.response?.data || err.message);
-            setErr(err.response?.data.message)
+            const message = err.response?.data?.message || 'Login failed';
+
+            // Check if the error is about email verification
+            if (message.toLowerCase().includes('verify')) {
+                setCheckEmailModal(true); // Show the modal
+            }
+
+            setErr(message); // Show error message under email input
+            console.error('Login error:', message);
         }
     };
 
 
 
     return (
+
         <div className="absolute inset-0 m-auto  z-50 flex justify-center items-center min-h-screen">
+            {showCheckEmailModal && (
+                <CheckEmail
+                    open={showCheckEmailModal}
+                    onClose={handleClose}
+                    email={userInput.email}
+                />
+            )}
             <div className="w-full max-w-md rounded-xl shadow-lg p-6 border text-black bg-white relative">
                 {/* Close Button */}
                 <button

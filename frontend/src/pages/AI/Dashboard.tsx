@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
         try {
             const res = await apiUsage()
             if (res) {
-                console.log(res)
+                // console.log(res)
                 setStats(res.data);
                 setLoading(false);
             }

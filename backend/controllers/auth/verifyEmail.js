@@ -18,7 +18,6 @@ const verifyEmail = async (req, res) => {
         //update and verify email
         findUser.isVerified = true;
         await findUser.save();
-        console.log(findUser)
 
         //delete token
         await checkToken.deleteOne()
