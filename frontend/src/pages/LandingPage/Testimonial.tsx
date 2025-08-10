@@ -71,7 +71,7 @@ function Testimonial() {
                                             </div>
 
                                             <blockquote className="flex-1 mt-8">
-                                                <p className="text-lg leading-relaxed text-gray-900 font-pj">“You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change.”</p>
+                                                <p className="text-lg leading-relaxed text-gray-900 font-pj">“You made it so simple. My new blog now has advanced ai generated topics and images. I just choose the service, new ideas came to me.”</p>
                                             </blockquote>
                                         </div>
 
@@ -175,7 +175,7 @@ function Testimonial() {
                                             </div>
 
                                             <blockquote className="flex-1 mt-8">
-                                                <p className="text-lg leading-relaxed text-gray-900 font-pj">“I cannot believe that I have got a brand new landing page after getting Omega. It was super easy to edit and publish.”</p>
+                                                <p className="text-lg leading-relaxed text-gray-900 font-pj">“I cannot believe how easier things becamse after using pluto.ai. It was super easy to edit and publish.”</p>
                                             </blockquote>
                                         </div>
 

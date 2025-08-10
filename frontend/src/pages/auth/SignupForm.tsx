@@ -86,6 +86,7 @@ const SignupForm: React.FC = () => {
         } catch (error: any) {
             if (error.response && error.response.data && error.response.data.message) {
                 console.error(error.response.data.message);
+                setEmailErr(error.response.data.message)
             } else {
                 console.error(error.message || 'Something went wrong');
             }
