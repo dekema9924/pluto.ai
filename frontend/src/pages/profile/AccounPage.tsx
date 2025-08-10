@@ -25,7 +25,7 @@ const AccountPage = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-[700px] bg-gray-50 text-black w-full max-w-[900px] md:w-11/12 mx-auto rounded-lg shadow-lg overflow-hidden">
+    <div className="flex flex-col md:flex-row h-[700px] bg-gray-50 text-black w-full max-w-[900px] md:w-11/12 mx-auto rounded-lg shadow-lg overflow-hidden z-50">
       {/* Mobile Top Bar */}
       <div className="flex md:hidden items-center justify-between p-4 border-b border-gray-300 w-full">
         <h2 className="text-lg font-semibold">Account</h2>

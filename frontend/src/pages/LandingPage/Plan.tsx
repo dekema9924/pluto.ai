@@ -1,9 +1,22 @@
-import { useState } from "react";
-import { Switch } from "@headlessui/react";
+// import { Switch } from "@headlessui/react";
 import CheckIcon from '@mui/icons-material/Check';
+import { useModal } from "../../context/modalContext";
+import { usePriceContext } from "../../context/priceContext";
 
 const Plan = () => {
-    const [annual, setAnnual] = useState(true);
+    const { toggleisCheckout } = useModal()
+    const { price } = usePriceContext()
+
+    // const handleAnnualChange = () => {
+    //     if (!annual) {
+    //         setPrice(6)
+    //         setAnnual(!annual)
+    //     } else {
+    //         setPrice(4)
+    //         setAnnual(!annual)
+
+    //     }
+    // }
 
     return (
         <section className="py-16 px-4  ">
@@ -34,20 +47,20 @@ const Plan = () => {
                                 Article Generation
                             </li>
                         </ul>
-                        <button className="mt-auto bg-gray-800 dark:bg-white text-white dark:text-gray-800 rounded-lg py-2 transition">
+                        {/* <button className="mt-auto bg-gray-800 dark:bg-white text-white dark:text-gray-800 rounded-lg py-2 transition">
                             Subscribe
-                        </button>
+                        </button> */}
                     </div>
 
                     {/* Premium Plan */}
                     <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col">
                         <div className="flex items-center justify-between mb-3">
                             <span className="font-semibold text-gray-600 dark:text-gray-300">Premium</span>
-                            <div className="flex items-center">
+                            {/* <div className="flex items-center">
                                 <span className="mr-2 text-sm text-gray-500 dark:text-gray-400">Billed annually</span>
                                 <Switch
                                     checked={annual}
-                                    onChange={setAnnual}
+                                    onChange={handleAnnualChange}
                                     className={`${!annual ? "bg-[wheat]" : "bg-gray-300"
                                         } relative inline-flex items-center h-6 rounded-full w-11 transition-colors`}
                                 >
@@ -56,11 +69,11 @@ const Plan = () => {
                                             } inline-block w-4 h-4 bg-white rounded-full transform transition`}
                                     />
                                 </Switch>
-                            </div>
+                            </div> */}
                         </div>
 
                         <span className="mt-2 text-4xl font-bold text-gray-800 dark:text-gray-100">
-                            ${annual ? 6 : 6 * 12 /* change logic if discount applied */}
+                            ${price}
                             <span className="text-sm font-medium text-gray-500 dark:text-gray-400">/month</span>
                         </span>
 
@@ -80,13 +93,14 @@ const Plan = () => {
                             ))}
                         </ul>
 
-                        <button className="mt-auto bg-[wheat] text-black font-bold rounded-lg py-2 transition hover:bg-blue-700 hover:text-white">
+                        <button onClick={toggleisCheckout} className="mt-auto bg-[wheat] text-black font-bold rounded-lg py-2 transition hover:bg-blue-700 hover:text-white">
                             Subscribe
                         </button>
                     </div>
 
                 </div>
             </div>
+
         </section>
     );
 }

@@ -1,9 +1,9 @@
 const genAI = require('../../config/gemini');
-const logApiUsage = require('../../middleware/logApiUsage');
-const apiDb = require('../../models/apiModel')
+
 
 const writeArticle = async (req, res) => {
     try {
+
         const { topic, selected } = req.body;
 
         const prompt = `Write a detailed, SEO-optimized article on the topic: ${topic}.

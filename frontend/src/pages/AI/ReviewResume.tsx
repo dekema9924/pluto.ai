@@ -53,9 +53,11 @@ function ReviewResume() {
                 setFormSubmitted(false)
             }
         }
-        catch (err) {
+        catch (err: any) {
             console.error(err)
             setFormSubmitted(false)
+            const message = err.response?.data?.message || 'Something went wrong';
+            toast.error(message)
 
 
         }

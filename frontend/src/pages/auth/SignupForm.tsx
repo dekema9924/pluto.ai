@@ -31,7 +31,6 @@ const SignupForm: React.FC = () => {
 
     const user = useSelector((state: RootState) => state.user)
 
-    console.log(user)
 
 
     const handleClose = () => {
@@ -84,10 +83,12 @@ const SignupForm: React.FC = () => {
                 // handle other status codes or errors
                 console.error('Signup failed:', res.status);
             }
-        } catch (err: any) {
-            toast.error(err.data.message)
-
-            console.error('Signup error:', err.response?.data || err.message);
+        } catch (error: any) {
+            if (error.response && error.response.data && error.response.data.message) {
+                console.error(error.response.data.message);
+            } else {
+                console.error(error.message || 'Something went wrong');
+            }
         }
     };
 

@@ -45,20 +45,14 @@ export default function GenerateImages() {
 
         } catch (err: any) {
             console.error(err);
-
-            // Try to get error message from common places:
-            const message =
-                err.response?.data?.error ||
-                err.message ||
-                'Something went wrong';
-
             setIsLoading(false);
             setAiResponse("");
             setFormSubmitted(false);
-            toast.error(message);
+            const message = err.response?.data?.message || 'Something went wrong';
+            toast.error(message)
+
         }
 
-        console.log(description, selectedStyle, isPublic);
     };
 
 

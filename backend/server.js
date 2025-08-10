@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const apiRouter = require('./routes/apiRoutes')
 const dashboardRouter = require('./routes/Dashboard')
+// const paymentRoute = require('./routes/paymentRoute')
+
 
 
 
@@ -31,12 +33,23 @@ app.use(cors({
 }));
 
 //middlewares
+// Stripe webhook route with raw parser BEFORE global parsers
+// app.post('/payments/webhook', express.raw({ type: 'application/json' }), (req, res, next) => {
+//   // require your webhook handler here or import
+//   require('./controllers/stripePayment/stripeWebhook')(req, res, next)
+// })
 app.use(cookieParser())
 app.use(express.json()) //parse json
 app.use(express.urlencoded({ extended: true }))
+
 app.use('/auth', userRouter)
 app.use('/api', apiRouter)
 app.use('/dashboard', dashboardRouter)
+
+// app.use('/payments', paymentRoute)  // This handles everything except /webhook
+
+
+
 
 
 

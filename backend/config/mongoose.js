@@ -6,7 +6,8 @@ const MongoURl = process.env.NODE_ENV == 'production' ? process.env.PROD_MONGOOS
 
 try {
     mongoose.connect(MongoURl).then(() => {
-        console.log('Mongoose connected to plutoai database');
+        console.log(` Mongoose connected to database: ${mongoose.connection.name}`);
+
 
     })
 } catch (error) {

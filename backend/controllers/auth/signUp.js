@@ -1,72 +1,58 @@
-const Userdb = require('../../models/UserModel')
-const bcrypt = require('bcryptjs')
-var validator = require('validator');
-const tokenDb = require('../../models/tokenModel')
+const Userdb = require('../../models/UserModel');
+const bcrypt = require('bcryptjs');
+const validator = require('validator');
+const tokenDb = require('../../models/tokenModel');
 const sendEmail = require('../../utils/sendEmail');
 
+const signUp = async (req, res) => {
+    const { email, password, name } = req.body;
 
-
-module.exports = signUp = async (req, res) => {
-    const { email, password, name } = req.body
-
-    //validate email & password
-    if (!validator.isEmail(email) || !validator.isStrongPassword(password)) {
-        return res.status(400).json({ message: 'invalid email or password format' })
+    if (!email || !password || !name) {
+        return res.status(400).json({ message: 'Empty fields' });
     }
 
+    if (!validator.isEmail(email) || !validator.isStrongPassword(password)) {
+        return res.status(400).json({ message: 'Invalid email or password format' });
+    }
 
+    const emailExist = await Userdb.findOne({ email });
+    if (emailExist) return res.status(400).json({ message: 'Email already exists.' });
 
-    //checking if user exist
-    const emailExist = await Userdb.findOne({ email })
-
-    if (emailExist) return res.status(400).json({ message: 'email already exist.' })
-
-    bcrypt.hash(password, 10, async function (err, hash) {
+    bcrypt.hash(password, 10, async (err, hash) => {
         if (err) {
             console.error('Hashing error:', err);
-            return;
+            return res.status(500).json({ message: 'Server error during password hashing' });
         }
 
         try {
             const newUser = await Userdb.create({
                 email,
                 password: hash,
-                name
+                name,
             });
-            await newUser.save()
 
-            //create token to verify account
             const newToken = await tokenDb.create({
                 userId: newUser._id,
-                token: Math.floor(100000 + Math.random() * 900000).toString()
+                token: Math.floor(100000 + Math.random() * 900000).toString(),
+            });
 
-            })
-            await newToken.save()
-            console.log(newToken)
+            const actionUrl = `${process.env.NODE_ENV === 'production' ? process.env.PRODURL : process.env.BASEURL}/auth/${newUser._id}/verify/${newToken.token}`;
 
-            //create url
-            const actionUrl = `${process.env.NODE_ENV == 'developement' ? process.env.BASEURL : process.env.PRODURL}/auth/${newUser._id}/verify/${newToken.token}`
-
-            //send email
-            sendEmail(
+            await sendEmail(
                 newUser.email,
-                "Verify Your Email",
-                "Click the button below to verify your account.", // ← this is `text`
+                'Verify Your Email',
+                'Click the button below to verify your account.',
                 actionUrl,
                 name
             );
 
-            return res.status(200).json({ message: 'User created successfully' });
+            return res.status(200).json({ message: 'User created successfully. Verification email sent.' });
         } catch (error) {
             console.error('Database error:', error);
+            return res.status(500).json({ message: 'Internal server error' });
         }
     });
+};
 
+module.exports = signUp;
 
-
-
-
-
-
-
-}

@@ -23,6 +23,7 @@ function Article() {
     const HandleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setFormSubmitted(true)
+        setAiResponse("")
         if (topic.length == 0) {
             toast.error('Enter a topic')
 
@@ -36,9 +37,12 @@ function Article() {
                 setFormSubmitted(false)
             }
         }
-        catch (err) {
+        catch (err: any) {
             console.error(err)
             setFormSubmitted(false)
+            const message = err.response?.data?.message || 'Something went wrong';
+            toast.error(message)
+
 
 
         }

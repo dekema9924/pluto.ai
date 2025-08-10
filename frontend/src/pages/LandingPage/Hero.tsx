@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"
 import { useModal } from "../../context/modalContext"
 import AccountPage from "../profile/AccounPage"
 import { useEffect } from "react"
+import CheckOut from "../../components/Checkout"
 
 const Hero = () => {
     const logos = [
@@ -30,12 +31,16 @@ const Hero = () => {
         };
     }, [isProfile]);
 
+
     return (
         <>
+
             <main
                 className={`transition-all duration-300 ${isProfile ? "blur-md pointer-events-none" : "pointer-events-auto"
                     }`}            >
                 <Header />
+
+                <CheckOut />
 
 
                 <section className="mt-22 flex flex-col items-center justify-center">

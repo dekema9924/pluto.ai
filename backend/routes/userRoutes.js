@@ -30,7 +30,7 @@ userRouter.get('/', (req, res) => {
     res.send('user routes')
 })
 
-//signup
+
 userRouter.post('/signup', signUp);
 userRouter.post('/signin', signIn)
 userRouter.get('/:id/verify/:token', verifyEmail);
@@ -38,6 +38,7 @@ userRouter.get('/profile', verifyToken, Profile)
 userRouter.post('/signout', verifyToken, signOut)
 userRouter.post('/uploadprofile', verifyToken, upload.single('avatar'), uploadProfileImage)
 userRouter.post('/resetpassword', verifyToken, resetPassword)
+
 
 
 module.exports = userRouter

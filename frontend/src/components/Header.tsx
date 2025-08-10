@@ -64,6 +64,7 @@ const Header = () => {
                     <h1 className="text-[2em] md:text-[3em] font-semibold text-[wheat]">Pluto.ai</h1>
                 </div>
 
+
                 {
                     user.id ? (
                         <>

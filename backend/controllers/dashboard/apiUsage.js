@@ -16,7 +16,6 @@ const apiUsage = async (req, res) => {
             { $group: { _id: "$type", count: { $sum: 1 } } }
         ]);
 
-        console.log(stats)
         res.json(stats);
     } catch (err) {
         console.error(err);

@@ -19,8 +19,11 @@ function App() {
         {/* Public Route */}
         <Route path="/" element={<Hero />} />
 
+
         {/* Protected routes wrapper */}
         <Route element={<ProtectedRoute />}>
+
+
 
           {/* Dashboard Layout */}
           <Route element={<DashboardLayout />}>
@@ -32,8 +35,6 @@ function App() {
           </Route>
 
 
-
-          {/* // Profile Page routes */}
 
 
         </Route>

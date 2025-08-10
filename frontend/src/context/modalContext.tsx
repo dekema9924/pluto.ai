@@ -10,6 +10,8 @@ type ModalContextType = {
     toggleIsMenu: () => void;
     isProfile: boolean;
     toggleIsProfile: () => void;
+    isCheckOut: boolean;
+    toggleisCheckout: () => void;
 
 }
 
@@ -41,10 +43,14 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
     const [isProfile, setIsProfile] = useState(false);
     const toggleIsProfile = () => setIsProfile((prev) => !prev);
 
+    //handle checkout modal
+    const [isCheckOut, setIsCheckOut] = useState(false)
+    const toggleisCheckout = () => setIsCheckOut((prev) => !prev)
+
 
 
     return (
-        <ModalContext.Provider value={{ isModal, isSignIn, toggleModal, switchForm, isMenu, toggleIsMenu, isProfile, toggleIsProfile }}>
+        <ModalContext.Provider value={{ isModal, isSignIn, toggleModal, switchForm, isMenu, toggleIsMenu, isProfile, toggleIsProfile, isCheckOut, toggleisCheckout }}>
             {children}
         </ModalContext.Provider>
     );

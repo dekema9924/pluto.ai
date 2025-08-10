@@ -1,39 +1,40 @@
 
-import AutoFixOffIcon from '@mui/icons-material/AutoFixOff';
-import { useState } from 'react';
+// import AutoFixOffIcon from '@mui/icons-material/AutoFixOff';
+// import { useState } from 'react';
 
 function RemoveBackground() {
-    const [file, setFile] = useState<File | null>(null)
+    // const [file, setFile] = useState<File | null>(null)
 
 
     //handle file change
-    const handlefileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setFile(e.target.files[0])
-        }
+    // const handlefileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     if (e.target.files && e.target.files[0]) {
+    //         setFile(e.target.files[0])
+    //     }
 
-    }
+    // }
 
     //handle form sumit
-    const HandleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (file) {
-            const formData = new FormData()
-            formData.append("image", file)
-            console.log(formData)
-        }
+    // const HandleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault()
+    //     if (file) {
+    //         const formData = new FormData()
+    //         formData.append("image", file)
+    //         console.log(formData)
+    //     }
 
 
-    }
+    // }
 
 
 
     return (
         <>
             <main className="flex md:flex-row flex-col gap-6 px-4 py-6 bg-[#413f3f]">
+                <h1>comming soon</h1>
 
                 {/* //left panel */}
-                <form onSubmit={(e) => HandleFormSubmit(e)} className="bg-white flex flex-col justify-between text-black shadow-md rounded-xl p-6 w-full md:w-1/2">
+                {/* <form onSubmit={(e) => HandleFormSubmit(e)} className="bg-white flex flex-col justify-between text-black shadow-md rounded-xl p-6 w-full md:w-1/2">
                     <div>
                         <h1 className="text-xl font-semibold mb-4 ">Background removal</h1>
 
@@ -48,7 +49,7 @@ function RemoveBackground() {
                 </form>
 
                 {/* //right panel */}
-                <div className="bg-white shadow-md rounded-xl p-6 w-full md:w-1/2 flex h-86 flex-col items-center justify-center text-gray-500 text-center">
+                {/* <div className="bg-white shadow-md rounded-xl p-6 w-full md:w-1/2 flex h-86 flex-col items-center justify-center text-gray-500 text-center">
                     <div className="flex items-center gap-2 mb-4 text-2xl">
                         <AutoFixOffIcon sx={{ fontSize: '2rem', color: 'oklch(82.7% 0.119 306.383)' }} />
                         <h1 className="font-bold capitalize">Processed Image</h1>
@@ -57,7 +58,7 @@ function RemoveBackground() {
                         <AutoFixOffIcon />
                         Upload an image and click "Remove Background" to get started
                     </p>
-                </div>
+                </div>  */}
             </main>
         </>
     )
