@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const apiRouter = require('./routes/apiRoutes')
 const dashboardRouter = require('./routes/Dashboard')
-// const paymentRoute = require('./routes/paymentRoute')
+const paymentRoute = require('./routes/paymentRoute')
 
 
 
@@ -16,7 +16,7 @@ const dashboardRouter = require('./routes/Dashboard')
 //cors config
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://plutoa1.netlify.app'
+    'https://plutoa1.netlify.app',
 ];
 
 app.use(cors({
@@ -45,8 +45,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/auth', userRouter)
 app.use('/api', apiRouter)
 app.use('/dashboard', dashboardRouter)
-
-// app.use('/payments', paymentRoute)  // This handles everything except /webhook
+app.use('/payments', paymentRoute)  // This handles everything except /webhook
 
 
 

@@ -2,10 +2,16 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { useModal } from "../../context/modalContext";
 import { usePriceContext } from "../../context/priceContext";
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store/store';
+import toast from 'react-hot-toast';
 
 const Plan = () => {
     const { toggleisCheckout } = useModal()
     const { price } = usePriceContext()
+    const { toggleModal } = useModal()
+    const user = useSelector((state: RootState) => state.user)
+
 
     // const handleAnnualChange = () => {
     //     if (!annual) {
@@ -17,6 +23,28 @@ const Plan = () => {
 
     //     }
     // }
+    const plan = [{
+        name: "basic plan",
+        price: 1,
+        features: [
+            "Title Generation",
+            "Article Generation",
+            "Generate Images",
+            "Resume Review",
+        ]
+    }]
+
+    const handleSubscribeClick = () => {
+        if (!user.id) {
+            toggleModal()
+            toast.error('logIn to continue')
+
+        } else {
+            toggleisCheckout()
+        }
+    }
+
+
 
     return (
         <section className="py-16 px-4  ">
@@ -78,22 +106,22 @@ const Plan = () => {
                         </span>
 
                         <ul className="space-y-2 flex-grow mb-4 mt-4">
-                            {[
-                                "Title Generation",
-                                "Article Generation",
-                                "Generate Images",
-                                "Remove Background",
-                                "Remove Object",
-                                "Resume Review",
-                            ].map((feature) => (
-                                <li key={feature} className="flex items-center text-gray-700 dark:text-gray-200">
-                                    <CheckIcon sx={{ color: 'green' }} />
-                                    {feature}
-                                </li>
-                            ))}
+                            {
+                                plan.map((feature) => (
+                                    feature.features.map((list) => {
+                                        return (
+                                            <>
+                                                <li key={feature.name} className="flex items-center text-gray-700 dark:text-gray-200">
+                                                    <CheckIcon sx={{ color: 'green' }} />
+                                                    {list}
+                                                </li>
+                                            </>
+                                        )
+                                    })
+                                ))}
                         </ul>
 
-                        <button onClick={toggleisCheckout} className="mt-auto bg-[wheat] text-black font-bold rounded-lg py-2 transition hover:bg-blue-700 hover:text-white">
+                        <button onClick={handleSubscribeClick} className="mt-auto bg-[wheat] text-black font-bold rounded-lg py-2 transition hover:bg-blue-700 hover:text-white">
                             Subscribe
                         </button>
                     </div>

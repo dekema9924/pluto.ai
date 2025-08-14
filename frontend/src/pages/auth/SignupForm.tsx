@@ -120,7 +120,7 @@ const SignupForm: React.FC = () => {
                     Welcome! Please fill in the details to get started.
                 </p>
 
-                <div className="flex gap-4 mb-4">
+                {/* <div className="flex gap-4 mb-4">
                     <button className="flex-1 border border-gray-300 py-2 rounded-md flex items-center justify-center gap-2 hover:bg-gray-50">
                         <img
                             src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
@@ -137,7 +137,7 @@ const SignupForm: React.FC = () => {
                         />
                         Google
                     </button>
-                </div>
+                </div> */}
 
                 <div className="flex items-center my-4">
                     <hr className="flex-grow border-gray-300" />

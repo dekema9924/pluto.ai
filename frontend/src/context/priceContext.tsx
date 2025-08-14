@@ -22,7 +22,7 @@ type PriceProviderProps = {
 
 export const PriceProvider = ({ children }: PriceProviderProps) => {
 
-    const [price, setPrice] = useState(6) // default price
+    const [price, setPrice] = useState(1) // default price
     const [annual, setAnnual] = useState(true)
 
     return (

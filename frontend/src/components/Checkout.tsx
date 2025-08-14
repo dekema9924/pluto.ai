@@ -2,6 +2,7 @@ import { useModal } from '../context/modalContext';
 import Backdrop from './Backdrop';
 import { useEffect } from 'react';
 import { usePriceContext } from '../context/priceContext';
+import axiosInstance from '../utils/axiosInstance';
 
 const CheckOut = () => {
     const { toggleisCheckout, isCheckOut } = useModal()
@@ -17,40 +18,33 @@ const CheckOut = () => {
         return () => {
             document.body.style.overflow = '';
         };
+
+
     }, [isCheckOut]);
 
 
 
-    interface HandleSubmitEvent extends React.FormEvent<HTMLFormElement> { }
 
-    const handleSubmit = async (e: HandleSubmitEvent): Promise<void> => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, lookupKey: string) => {
         e.preventDefault();
+        try {
+            const res = await axiosInstance.post('/payments/create-checkout-session', {
+                lookup_key: lookupKey
+            });
 
+            // Optional: log full response
+            console.log('Stripe Checkout session:', res);
 
-        // const lookup_key = 'pluto-monthly-4usd';
-
-        // try {
-        //     const response = await axios.post(
-        //         'http://localhost:3000/payments',
-        //         { lookup_key },
-        //         {
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             withCredentials: true, // If your backend expects cookies (e.g., JWT)
-        //         }
-        //     );
-
-        //     if (response.data.url) {
-        //         window.location.href = response.data.url;
-        //     } else {
-        //         alert('Failed to create Stripe checkout session');
-        //     }
-        // } catch (error) {
-        //     console.error('Error creating checkout session:', error);
-        //     alert('An error occurred.');
-        // }
+            // Redirect to Stripe Checkout
+            window.location.href = res.data.url;
+        } catch (error: any) {
+            console.error('Error creating checkout session:', error?.response?.data || error.message || error);
+        }
     };
+
+
+
+
 
     return (
         <>
@@ -94,39 +88,8 @@ const CheckOut = () => {
                 </div>
 
                 {/* Card Form */}
-                <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
-                    {/* <input
-                            type="text"
-                            placeholder="1234 1234 1234 1234"
-                            className="w-full border border-gray-300 p-2 rounded text-sm "
-                        />
+                <form onSubmit={(e) => handleSubmit(e, "sunglasses_premuim-dca89f4")} className="space-y-4">
 
-                        <div className="flex gap-2">
-                            <input
-                                type="text"
-                                placeholder="MM / YY"
-                                className="w-1/2 border border-gray-300 p-2 rounded text-sm"
-                            />
-                            <input
-                                type="text"
-                                placeholder="CVC"
-                                className="w-1/2 border border-gray-300 p-2 rounded text-sm"
-                            />
-                        </div>
-
-                        <select className="w-full border border-gray-300 p-2 rounded text-sm">
-                            <option>United States</option>
-                        </select> */}
-
-                    {/* <input
-                            type="text"
-                            placeholder="12345"
-                            className="w-full border border-gray-300 p-2 rounded text-sm"
-                        />
-
-                        <p className="text-xs text-gray-500">
-                            By providing your card information, you allow Clerk Development Gateway to charge your card for future payments in accordance with their terms.
-                        </p> */}
 
                     <button
                         type="submit"

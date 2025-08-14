@@ -1,49 +1,38 @@
-// const stripe = require('stripe')(process.env.STRIPESECRETKEY);
-// const Userdb = require('../../models/UserModel');
+const stripe = require('stripe')(process.env.STRIPESECRETKEY);
+const Userdb = require('../../models/UserModel');
 
-// const makePayment = async (req, res) => {
-//     const userId = req.user.userId;
 
-//     try {
-//         // Create or retrieve a customer ID for this user first
-//         let user = await Userdb.findById(userId);
+const makePayment = async (req, res) => {
+    const redirectUrl = process.env.NODE_ENV === "production" ? 'https://plutoa1.netlify.app' : 'http://localhost:5173'
+    console.log(redirectUrl)
+    try {
 
-//         let customerId = user.stripeCustomerId;
-//         if (!customerId) {
-//             // Create a new Stripe customer if user doesn't have one yet
-//             const customer = await stripe.customers.create({
-//                 email: user.email,
-//                 metadata: { userId: user._id.toString() },
-//             });
-//             customerId = customer.id;
+        const prices = await stripe.prices.list({
+            lookup_keys: [req.body.lookup_key],
+            expand: ['data.product'],
+        });
 
-//             // Save customerId to user
-//             user.stripeCustomerId = customerId;
-//             await user.save();
-//         }
+        const session = await stripe.checkout.sessions.create({
+            billing_address_collection: 'auto',
+            line_items: [
+                {
+                    price: prices.data[0].id,
+                    quantity: 1,
 
-//         // Create checkout session using this customer ID
-//         const session = await stripe.checkout.sessions.create({
-//             mode: 'subscription',
-//             payment_method_types: ['card'],
-//             customer: customerId, // <---- important
-//             line_items: [
-//                 {
-//                     price: 'price_1RsWsG5QDHWvZzWPPcyKUse7',
-//                     quantity: 1,
-//                 },
-//             ],
-//             billing_address_collection: 'auto',
-//             success_url: `http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}`,
-//             cancel_url: `http://localhost:5173/cancel`,
-//             metadata: { userId: user._id.toString() },
-//         });
+                },
+            ],
+            mode: 'subscription',
+            success_url: `${redirectUrl}/success.html?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${redirectUrl}/cancel.html`,
+        });
 
-//         res.json({ url: session.url });
-//     } catch (err) {
-//         console.error('Error creating Stripe session:', err.message);
-//         res.status(500).json({ error: err.message });
-//     }
-// };
+        res.status(200).json({ url: session.url })
 
-// module.exports = makePayment;
+    } catch (error) {
+        console.error('Error:', err);
+        res.status(500).json({ error: 'payment failed' });
+    }
+
+};
+
+module.exports = makePayment;
