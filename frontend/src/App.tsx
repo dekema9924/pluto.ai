@@ -8,6 +8,8 @@ import WriteArticle from './pages/AI/WriteArticle'
 import ReviewResume from "./pages/AI/ReviewResume"
 import Dashboard from "./pages/AI/Dashboard"
 import { Toaster } from 'react-hot-toast';
+import StripeSuccess from "./components/StripeSuccess"
+import StripeCancel from "./components/StripeCancel"
 
 
 
@@ -23,6 +25,9 @@ function App() {
         {/* Protected routes wrapper */}
         <Route element={<ProtectedRoute />}>
 
+          {/* //stripe pages */}
+          <Route path="cancel" element={<StripeCancel />} />
+          <Route path="success" element={<StripeSuccess />} />
 
 
           {/* Dashboard Layout */}

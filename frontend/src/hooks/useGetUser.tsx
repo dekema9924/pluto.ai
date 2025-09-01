@@ -15,6 +15,7 @@ const useGetUser = () => {
                 // 1.getting from API
                 const res = await fetchUserProfile();
                 const userData = res.data.result;
+                console.log("Fetched user data from API:", userData);
 
                 dispatch(loginUser({ id: userData._id, ...userData }));
 

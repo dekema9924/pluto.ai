@@ -9,6 +9,8 @@ interface userInterface {
     name: string | null
     profileImage: string | null
     id: string | null
+    stripeStatus: string | null
+
 }
 
 const initialState: userInterface = {
@@ -16,7 +18,9 @@ const initialState: userInterface = {
     isVerified: false,
     name: null,
     profileImage: null,
-    id: null
+    id: null,
+    stripeStatus: 'inactive'
+
 }
 
 

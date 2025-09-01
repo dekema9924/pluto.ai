@@ -4,11 +4,6 @@ const logApiUsage = require('../../middleware/logApiUsage');
 
 
 const resumeReview = async (req, res) => {
-    console.log('hey')
-    console.log('Uploaded file:', req.file);
-    console.log('Mimetype:', req.file.mimetype); // should be application/pdf
-    console.log('Buffer size:', req.file.buffer.length); // should be > 0
-    console.log(req.file.buffer)
 
     try {
         const pdfBuffer = req.file.buffer;

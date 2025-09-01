@@ -106,9 +106,9 @@ const Header = () => {
 
                                     {/* logout */}
 
-                                    <div className='flex text-gray-600 items-center gap-3 cursor-pointer hover:bg-gray-200 h-10 hover:rounded-lg '>
+                                    <div onClick={() => handleSignOut()} className='flex text-gray-600 items-center gap-3 cursor-pointer hover:bg-gray-200 h-10 hover:rounded-lg '>
                                         <LogoutIcon />
-                                        <button onClick={() => handleSignOut()}>Sign out</button>
+                                        <button >Sign out</button>
                                     </div>
 
                                 </div>

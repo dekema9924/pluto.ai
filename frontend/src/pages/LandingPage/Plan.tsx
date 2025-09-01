@@ -25,7 +25,7 @@ const Plan = () => {
     // }
     const plan = [{
         name: "basic plan",
-        price: 1,
+        price: 10,
         features: [
             "Title Generation",
             "Article Generation",
@@ -121,9 +121,17 @@ const Plan = () => {
                                 ))}
                         </ul>
 
-                        <button onClick={handleSubscribeClick} className="mt-auto bg-[wheat] text-black font-bold rounded-lg py-2 transition hover:bg-blue-700 hover:text-white">
-                            Subscribe
-                        </button>
+                        {
+                            user.stripeStatus === 'active' ? (
+                                <button disabled className="mt-auto bg-gray-400 text-white rounded-lg py-2 !cursor-not-allowed">
+                                    Current Plan
+                                </button>
+                            ) : (
+                                <button onClick={handleSubscribeClick} className="mt-auto bg-blue-500  text-white rounded-lg py-2 transition hover:bg-gray-700 ">
+                                    Subscribe
+                                </button>
+                            )
+                        }
                     </div>
 
                 </div>

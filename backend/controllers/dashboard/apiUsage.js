@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 
 const apiUsage = async (req, res) => {
-    // console.log('User ID:', req.user.userId);
 
 
     try {

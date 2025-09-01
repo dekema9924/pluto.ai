@@ -11,9 +11,17 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    googleId: String,
-    facebookId: String,
-    name: String
+
+    name: String,
+    stripeCustomerId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    stripeStatus: {
+        type: String,
+        default: 'inactive'
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);

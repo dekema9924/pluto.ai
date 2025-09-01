@@ -14,11 +14,15 @@ const paymentSchema = new mongoose.Schema({
     unique: true,
   },
   priceId: String,
+  amount: Number,
+  currency: String,
   status: {
     type: String,
     enum: ['active', 'canceled', 'past_due', 'incomplete', 'unpaid'],
   },
+  currentPeriodStart: Date,
   currentPeriodEnd: Date,
 }, { timestamps: true });
+
 
 module.exports = mongoose.model('Payment', paymentSchema);

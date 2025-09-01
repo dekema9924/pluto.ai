@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiUsage } from "../../api/dashboard";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 type UsageStat = {
     _id: string;    // type name like 'write-article'
@@ -10,6 +12,7 @@ const Dashboard: React.FC = () => {
     const [stats, setStats] = useState<UsageStat[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const user = useSelector((state: RootState) => state.user)
 
 
     const getUsage = async () => {
@@ -51,7 +54,14 @@ const Dashboard: React.FC = () => {
 
                     <div className="bg-white text-black p-6 rounded shadow">
                         <p className="text-gray-500 text-sm">Active Plan</p>
-                        <p className="text-2xl font-bold text-purple-600">Free</p>
+
+                        {
+                            user.stripeStatus === 'active' ? (
+                                <p className="text-green-600 font-semibold text-2xl">Premuim</p>
+                            ) : (
+                                <p className="text-blue-600 font-semibold text-2xl">Free</p>
+                            )
+                        }
                     </div>
 
                     <div className="bg-white text-black p-6 rounded shadow">
