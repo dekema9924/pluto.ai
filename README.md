@@ -1,94 +1,71 @@
-Pluto.ai
-<p align="center"> <img src="https://via.placeholder.com/1000x300?text=Pluto.ai+-+AI+Powered+Content+Platform" alt="Pluto.ai Banner" /> </p> <p align="center"> <b>Generate Images 🎨 | Write Blogs ✍️ | Review Resumes 📄</b> </p>
-<p align="center"> <img src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB" /> <img src="https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white" /> <img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white" /> <img src="https://img.shields.io/badge/Mongoose-880000?logo=mongoose&logoColor=white" /> <img src="https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white" /> <img src="https://img.shields.io/badge/Render-46E3B7?logo=render&logoColor=black" /> <img src="https://img.shields.io/badge/Netlify-00C7B7?logo=netlify&logoColor=white" /> </p>
-🚀 About Pluto.ai
+🌌 Pluto.ai
+<p align="center"> <img src="https://via.placeholder.com/1000x280?text=Pluto.ai+-+Create+Smarter+with+AI" alt="Pluto.ai Banner" /> </p> <p align="center"> <b>🚀 Generate Images | ✍️ Write Blogs | 📄 Review Resumes</b> </p>
+✨ What is Pluto.ai?
 
-Pluto.ai is an AI-powered SaaS platform that helps users create and optimize content effortlessly. Whether you’re a creator, job seeker, or business owner, Pluto.ai empowers you with:
+Pluto.ai is your AI-powered productivity assistant.
+With just a few clicks, you can:
 
-🎨 AI Image Generation – Create stunning visuals from text prompts.
+🎨 Create Images – Generate high-quality visuals for blogs, designs, or social posts.
 
-✍️ Blog Content Writing – Generate SEO-friendly blog posts and marketing copy.
+✍️ Write Blogs – SEO-ready, long-form articles in seconds.
 
-📄 Resume Review – Improve your resume with AI-powered feedback and keyword analysis.
+📄 Review Resumes – AI feedback to help you land your dream job.
 
-✨ Features
-
-Image Generation – AI-generated visuals in multiple styles.
-
-Blog Writing – SEO-friendly articles tailored to your niche.
-
-Resume Review – Automated resume analysis and suggestions.
-
-User-Friendly SaaS – Fast, reliable, and accessible from anywhere.
-
-🛠 Tech Stack
-
-Frontend: React, TypeScript, TailwindCSS
-
-Backend: Node.js, Express, TypeScript
-
-Database: MongoDB (via Mongoose)
-
-AI Integration: OpenAI API
-
-Deployment:
-
-Frontend → Netlify
-
-Backend → Render
-
-📦 Installation
-
-Clone the repository:
-
+<p align="center"> <img src="https://via.placeholder.com/800x400?text=Demo+Screenshot+Here" alt="Pluto.ai Demo Screenshot" /> </p>
+🛠 Built With
+<p align="center"> <img src="https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB" /> <img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white" /> <img src="https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white" /> <img src="https://img.shields.io/badge/MongoDB-4EA94B?logo=mongodb&logoColor=white" /> <img src="https://img.shields.io/badge/Mongoose-880000?logo=mongoose&logoColor=white" /> <img src="https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white" /> <img src="https://img.shields.io/badge/Render-46E3B7?logo=render&logoColor=black" /> <img src="https://img.shields.io/badge/Netlify-00C7B7?logo=netlify&logoColor=white" /> </p>
+🚀 Quick Start
+# Clone the repo
 git clone https://github.com/your-username/pluto.ai.git
 cd pluto.ai
 
-
-Install dependencies:
-
+# Install dependencies
 npm install
 
+# Add your API keys
+cp .env.example .env
 
-Configure environment variables:
-
-Create a .env file in the root directory and add:
-
-OPENAI_API_KEY=your_openai_api_key
-MONGO_URI=your_mongodb_connection_string
-
-
-Start the development servers:
-
-# Start backend
+# Start backend (Render-style)
 npm run server
 
-# Start frontend
+# Start frontend (Netlify-style)
 npm run client
 
+<p align="center"> <img src="https://via.placeholder.com/600x300?text=Terminal+Demo+Gif+Here" alt="Run Demo" /> </p>
 🌐 Live Demo
 
-👉 Visit Pluto.ai
+👉 Try Pluto.ai
 
-🛠 Roadmap
+✅ Roadmap
 
- Multi-language support for content generation.
+🌍 Multi-language content generation
 
- AI-powered resume scoring with industry benchmarks.
+🤖 Advanced AI resume scoring
 
- Export to PDF/DOCX/Markdown.
+📤 Export features (PDF, DOCX, Markdown)
 
- Team collaboration features.
+👥 Team collaboration tools
 
 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!
-Feel free to fork the repo and submit a pull request.
+Contributions are welcome!
+
+# Fork it
+# Create a feature branch
+git checkout -b feature/amazing-idea
+
+# Commit your changes
+git commit -m "✨ Add amazing feature"
+
+# Push & submit PR
 
 📄 License
 
-This project is licensed under the MIT License.
+Licensed under the MIT License.
 
 👨‍🚀 About
 
-Pluto.ai was built to help people create, work, and grow faster with the power of AI + modern web technologies.
+Pluto.ai is built with ❤️ using React, Node.js, TypeScript, Mongoose, and OpenAI.
+Deployed with Netlify + Render.
+
+<p align="center"> <img src="https://via.placeholder.com/500x200?text=AI+Made+Simple" alt="Tagline Image" /> </p>
